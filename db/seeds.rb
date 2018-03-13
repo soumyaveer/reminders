@@ -1,7 +1,37 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Destroy all previously created Reminders
+Reminder.destroy_all
+
+#create new reminders
+Reminder.create!(title: Faker::Lorem.sentence,
+                 message: Faker::Lorem.paragraph,
+                 time: Faker::Time.forward(21, :morning),
+                 recipient_email_addresses: [
+                   Faker::Internet.email,
+                   Faker::Internet.email
+                 ])
+
+Reminder.create!(title: Faker::Lorem.sentence,
+                 message: Faker::Lorem.paragraph,
+                 time: Faker::Time.forward(19, :morning),
+                 recipient_email_addresses: [
+                   Faker::Internet.email,
+                   Faker::Internet.email,
+                   Faker::Internet.email
+                 ])
+
+Reminder.create!(title: Faker::Lorem.sentence,
+                 message: Faker::Lorem.paragraph,
+                 time: Faker::Time.forward(23, :morning),
+                 recipient_email_addresses: [
+                   Faker::Internet.email
+                 ])
+
+Reminder.create!(title: Faker::Lorem.sentence,
+                 message: Faker::Lorem.paragraph,
+                 time: Faker::Time.forward(27, :morning),
+                 recipient_email_addresses: [
+                   Faker::Internet.email,
+                   Faker::Internet.email
+                 ])
+
+
