@@ -16,6 +16,16 @@ describe EmailWorker do
       expect(mail.subject).to eql('A Gentle Reminder')
     end
 
-    
+    it 'updates the reminder' do
+      reminder.time = Time.parse('3 May 2018 14:35:29 -0800')
+      reminder.save!
+
+      EmailWorker.new.perform(reminder.id)
+
+      reminder.reload
+
+      expected_reminder_time = Time.parse('3 May 2018 14:35:29 -0800')
+      expect(reminder.time).to eql(expected_reminder_time)
+    end
   end
 end
