@@ -1,4 +1,6 @@
 class Reminder < ApplicationRecord
+  include ActiveModel::Dirty
+
   validates :title, uniqueness: true
   validates :title, :time, :recipient_email_addresses, presence: true
 
@@ -22,4 +24,9 @@ class Reminder < ApplicationRecord
     sidekiq_job.delete if sidekiq_job.present?
   end
 
+  def re_enqueue_sidekiq_job
+    return unless self.time_changed?
+    remove_sidekiq_job
+    enqueue_sidekiq_job
+  end
 end
