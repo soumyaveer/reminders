@@ -17,4 +17,9 @@ class Reminder < ApplicationRecord
     self.update_column(:sidekiq_job_id, sidekiq_job_id)
   end
 
+  def remove_sidekiq_job
+    sidekiq_job = Sidekiq::ScheduleSet.new.find_job(self.sidekiq_job_id)
+    sidekiq_job.delete if sidekiq_job.present?
+  end
+
 end
