@@ -14,6 +14,7 @@ gem 'rails', '~> 5.1.5'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
+# Use sidekiq for background jobs
 gem 'sidekiq'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
