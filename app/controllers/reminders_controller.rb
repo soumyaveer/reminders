@@ -1,4 +1,5 @@
 class RemindersController < ApplicationController
+  before_action :load_reminder, only: [:update, :edit, :destroy]
 
   def create
     @reminder = Reminder.new(reminder_params)
@@ -17,12 +18,34 @@ class RemindersController < ApplicationController
     redirect_to reminders_url
   end
 
+  def edit
+  end
+
   def index
     @reminders = Reminder.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @reminders }
+    end
   end
 
   def show
     @reminder = Reminder.find(params[:id])
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @reminders }
+    end
+  end
+
+  def update
+    if @reminder.update(reminder_params)
+      respond_to do |format|
+        format.html { redirect_to reminder_url(@reminder) }
+        format.json { render json: @reminder }
+      end
+    else
+      render 'edit'
+    end
   end
 
   private
