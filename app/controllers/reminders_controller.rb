@@ -12,8 +12,24 @@ class RemindersController < ApplicationController
     end
   end
 
+  def destroy
+    @reminder.destroy!
+    redirect_to reminders_url
+  end
+
+  def index
+    @reminders = Reminder.all
+  end
+
+  def show
+    @reminder = Reminder.find(params[:id])
+  end
 
   private
+
+  def load_reminder
+    @reminder = Reminder.find(params[:id])
+  end
 
   def reminder_params
     params.require(:reminder).permit(
