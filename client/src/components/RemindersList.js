@@ -28,14 +28,17 @@ class RemindersList extends React.Component {
   render() {
     return (
       <div>
-        <Button className="new-button">
-          Add Reminder
-        </Button>
+        <div>
+          <Button className="new-button">
+            Add Reminder
+          </Button>
+        </div>
 
-        {this.state.reminders.map((reminder) => {
-          return (<RemindersListItem reminder={reminder} key={reminder.id} />)
-        })}
-
+        <div className="reminders">
+          {this.state.reminders.map((reminder) => {
+            return (<RemindersListItem reminder={reminder} key={reminder.id} />)
+          })}
+        </div>
       </div>
     )
   }
