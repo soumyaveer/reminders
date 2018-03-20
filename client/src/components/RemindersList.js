@@ -2,7 +2,7 @@ import React from 'react';
 
 class RemindersList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       reminders: []
@@ -16,7 +16,7 @@ class RemindersList extends React.Component {
       .then(response => {
         console.log(response);
         this.setState({
-          reminders: response.data
+          reminders: response
         })
       })
       .catch(error => console.log(error))
@@ -26,7 +26,14 @@ class RemindersList extends React.Component {
   render() {
     return (
       <div>
-        Reminders
+        {this.state.reminders.map((reminder) => {
+          return(
+            <div className="tile" key={reminder.id} >
+              <h4>{reminder.title}</h4>
+              <p>{reminder.message}</p>
+            </div>
+          )
+        })}
       </div>
     )
   }
