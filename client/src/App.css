@@ -36,3 +36,16 @@
   font-size: 13px;
   text-align: left;
 }
+
+.tile-header {
+  height: 40px;
+  width: 180px;
+  margin-left: 10px;
+
+}
+
+.tile-body {
+  height: 150px;
+  width: 180px;
+  margin-left: 10px;
+}

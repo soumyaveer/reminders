@@ -22,7 +22,7 @@ class RemindersController < ApplicationController
   end
 
   def index
-    @reminders = Reminder.all
+    @reminders = Reminder.order_by_recent
     render json: @reminders
   end
 
