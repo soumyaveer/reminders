@@ -1,4 +1,5 @@
 import React from 'react';
+import RemindersListItem from "./RemindersListItem";
 
 class RemindersList extends React.Component {
   constructor(props) {
@@ -27,13 +28,9 @@ class RemindersList extends React.Component {
     return (
       <div>
         {this.state.reminders.map((reminder) => {
-          return(
-            <div className="tile" key={reminder.id} >
-              <h4>{reminder.title}</h4>
-              <p>{reminder.message}</p>
-            </div>
-          )
+          return (<RemindersListItem reminder={reminder} key={reminder.id} />)
         })}
+
       </div>
     )
   }
