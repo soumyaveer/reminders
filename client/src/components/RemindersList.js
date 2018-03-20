@@ -1,6 +1,7 @@
 import React from 'react';
 import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
+const rootUrl = 'http://localhost:3001/reminders.json';
 
 class RemindersList extends React.Component {
   constructor(props) {
@@ -12,8 +13,7 @@ class RemindersList extends React.Component {
   }
 
   componentDidMount() {
-    const url = 'http://localhost:3001/reminders.json';
-    fetch(url)
+    fetch(rootUrl)
       .then(response => response.json())
       .then(response => {
         console.log(response);
@@ -24,12 +24,37 @@ class RemindersList extends React.Component {
       .catch(error => console.log(error))
   }
 
+  addNewReminder = () => {
+    let postReminder = {
+      reminder: {
+        title: '',
+        message: '',
+        time: '',
+        recipient_email_addresses: []
+      }
+    };
+
+    console.log(JSON.stringify(postReminder));
+    fetch(rootUrl,
+      {
+        method: 'POST',
+        body: JSON.stringify(postReminder),
+        headers: {
+          'Accept': 'application/json',
+          'content-type': 'application/json'
+        },
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => console.log(error))
+  };
 
   render() {
     return (
       <div>
         <div>
-          <Button className="new-button">
+          <Button className="new-button" onClick={this.addNewReminder}>
             Add Reminder
           </Button>
         </div>

@@ -64,7 +64,7 @@
   padding: 5px;
 }
 
-.new-button:hover {
+.button:hover, .new-button:hover {
   background: transparent;
   color: lightseagreen;
   box-shadow: 5px 5px darkgrey;

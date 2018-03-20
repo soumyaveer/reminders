@@ -2,15 +2,8 @@ class RemindersController < ApplicationController
   before_action :load_reminder, only: [:update, :edit, :destroy]
 
   def create
-    @reminder = Reminder.new(reminder_params)
-    if @reminder.save
-      respond_to do |format|
-        format.html {redirect_to reminders_url }
-        format.json { render json: @reminder }
-      end
-    else
-      render 'new'
-    end
+    @reminder = Reminder.create(reminder_params)
+    render json: @reminder
   end
 
   def destroy

@@ -3,8 +3,8 @@ require 'sidekiq/api'
 class Reminder < ApplicationRecord
   include ActiveModel::Dirty
 
-  validates :title, uniqueness: true
-  validates :title, :time, :recipient_email_addresses, presence: true
+  # validates :title, uniqueness: true
+  # validates :title, :time, :recipient_email_addresses, presence: true
 
   after_create :enqueue_sidekiq_job
   after_destroy :remove_sidekiq_job
