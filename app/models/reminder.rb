@@ -10,7 +10,7 @@ class Reminder < ApplicationRecord
   after_destroy :remove_sidekiq_job
   after_update :re_enqueue_sidekiq_job
 
-  scope :order_by_recent, -> { order(time: :desc) }
+  scope :order_by_created_at, -> { order(created_at: :desc) }
 
   def recipient_email_address_values=(values)
     self.recipient_email_addresses = values.split(",")
