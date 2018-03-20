@@ -11,6 +11,7 @@
   text-align: center;
   height: 150px;
   padding: 20px;
+  color: darkcyan;
 }
 
 .App-title {
@@ -24,4 +25,14 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.tile {
+  height: 200px;
+  width: 200px;
+  margin: 20px;
+  background: lightcyan;
+  float: left;
+  font-size: 13px;
+  text-align: left;
 }
