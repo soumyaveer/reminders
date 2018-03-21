@@ -71,6 +71,12 @@ class RemindersList extends React.Component {
     this.setState({ reminders: reminders })
   };
 
+  enableEditing = (id) => {
+    this.setState({
+      editingReminderId: id
+    }, () => { this.title.focus() })
+  };
+
   render() {
     const { reminders, editingReminderId} = this.state;
     return (
@@ -87,9 +93,15 @@ class RemindersList extends React.Component {
               return (<RemindersForm
                 reminder={reminder}
                 key={reminder.id}
-                updateReminder={this.updateReminder}/>)
+                updateReminder={this.updateReminder}
+                titleRef={input => this.title = input }
+              />)
             }
-            return (<RemindersListItem reminder={reminder} key={reminder.id} />)
+            return (<RemindersListItem
+              reminder={reminder}
+              key={reminder.id}
+              onClick={this.enableEditing}
+            />)
           })}
         </div>
       </div>

@@ -1,10 +1,25 @@
 import React from 'react';
 import Time from 'react-time-format';
 
-const RemindersListItem = ({reminder}) =>
-  <div className="tile" key={reminder.id}>
-    <h4 className="tile-header">{reminder.title}</h4>
-    <p className="tile-body">{reminder.message}</p>
-  </div>;
+
+class RemindersListItem extends React.Component {
+
+  handleOnClick = () => {
+    this.props.onClick(this.props.reminder.id)
+  };
+
+  render() {
+    return(
+      <div className="tile">
+        <h4 onClick={this.handleOnClick}>
+          {this.props.reminder.title}
+        </h4>
+        <p onClick={this.handleOnClick}>
+          {this.props.reminder.message}
+        </p>
+      </div>
+    )
+  }
+}
 
 export default RemindersListItem;

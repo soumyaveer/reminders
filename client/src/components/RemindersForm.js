@@ -1,5 +1,4 @@
 import React from 'react';
-import DateTime from 'react-datetime';
 
 const rootUrl = 'http://localhost:3001/reminders';
 
@@ -63,6 +62,7 @@ class RemindersForm extends React.Component {
             placeholder="Enter Title"
             value={title}
             onChange={this.handleOnChange}
+            ref={this.props.titleRef}
           />
 
           <textarea
