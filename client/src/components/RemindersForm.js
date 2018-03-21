@@ -15,7 +15,8 @@ class RemindersForm extends React.Component {
   handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-
+    console.log(name);
+    console.log(value);
     this.setState({
       [name] : value
     })
@@ -45,10 +46,11 @@ class RemindersForm extends React.Component {
           </textarea>
 
           <input
+            name="time"
             className="datetime"
             type="datetime-local"
             value={time}
-            onChange={this.handleOnChange}
+            onClick={this.handleOnChange}
           />
 
           <textarea

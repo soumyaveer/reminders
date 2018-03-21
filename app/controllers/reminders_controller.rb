@@ -28,14 +28,9 @@ class RemindersController < ApplicationController
   end
 
   def update
-    if @reminder.update(reminder_params)
-      respond_to do |format|
-        format.html { redirect_to reminder_url(@reminder) }
-        format.json { render json: @reminder }
-      end
-    else
-      render 'edit'
-    end
+    @reminder = Reminder.find(params[:id])
+    @reminder.update_attributes(reminder_params)
+    render json: @reminder
   end
 
   private
