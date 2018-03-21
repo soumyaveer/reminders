@@ -53,6 +53,10 @@
   margin-left: 10px;
 }
 
+.tile:hover .deleteButton {
+  visibility: visible;
+}
+
 .button, .new-button {
   background: lightseagreen;
   border: 1px solid darkgrey;
@@ -103,3 +107,14 @@ textarea {
   width: 180px;
   height: 20px;
 }
+
+.deleteButton {
+  visibility: hidden;
+  float: right;
+  margin: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  color: red;
+}
+
+
