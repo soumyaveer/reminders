@@ -82,6 +82,7 @@ class RemindersList extends React.Component {
 
   deleteReminder = (id) => {
     const deleteUrl = `${rootUrl}/${id}`;
+
     fetch(deleteUrl, {
       method: 'DELETE',
       headers: {
@@ -89,7 +90,6 @@ class RemindersList extends React.Component {
         'content-type': 'application/json'
       },
     })
-      // .then(response => response.json())
       .then(response => {
         const reminderIndex = this.state.reminders.findIndex(reminder => reminder.id === id);
         const reminders = update(this.state.reminders,
