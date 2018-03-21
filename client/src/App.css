@@ -74,3 +74,31 @@
   margin: 20px;
   padding: 10px;
 }
+
+.input {
+  border: 0;
+  background: none;
+  outline: none;
+  margin-top:10px;
+  margin-left: 5px;
+  margin-right: 10px;
+  width: 180px;
+  font-size: 11px;
+}
+
+.input:focus {
+  border: solid 2px lightgrey;
+}
+
+textarea {
+  resize: none;
+  height: 50px;
+  font-size: 16px;
+}
+
+.datetime {
+  border: none;
+  margin-left: 10px;
+  width: 180px;
+  height: 20px;
+}

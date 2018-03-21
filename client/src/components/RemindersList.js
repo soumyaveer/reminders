@@ -1,6 +1,10 @@
 import React from 'react';
 import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
+import RemindersForm from './RemindersForm';
+import update from 'immutability-helper';
+
+
 const rootUrl = 'http://localhost:3001/reminders.json';
 
 class RemindersList extends React.Component {
@@ -8,7 +12,8 @@ class RemindersList extends React.Component {
     super(props);
 
     this.state = {
-      reminders: []
+      reminders: [],
+      editingReminderId: null
     }
   }
 
@@ -34,7 +39,6 @@ class RemindersList extends React.Component {
       }
     };
 
-    console.log(JSON.stringify(postReminder));
     fetch(rootUrl,
       {
         method: 'POST',
@@ -44,13 +48,22 @@ class RemindersList extends React.Component {
           'content-type': 'application/json'
         },
       })
+      .then(response => response.json())
       .then(response => {
-        console.log(response)
+        console.log("New response", response);
+        const reminders = update(this.state.reminders, {
+          $splice: [[0,0, response]]
+        });
+        this.setState({
+          reminders: reminders,
+          editingReminderId: response.id
+        })
       })
       .catch(error => console.log(error))
   };
 
   render() {
+    const { reminders, editingReminderId} = this.state;
     return (
       <div>
         <div>
@@ -60,7 +73,10 @@ class RemindersList extends React.Component {
         </div>
 
         <div className="reminders">
-          {this.state.reminders.map((reminder) => {
+          {reminders.map((reminder) => {
+            if(editingReminderId === reminder.id) {
+              return (<RemindersForm reminder={reminder} key={reminder.id} />)
+            }
             return (<RemindersListItem reminder={reminder} key={reminder.id} />)
           })}
         </div>
