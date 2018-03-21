@@ -1,5 +1,7 @@
 import React from 'react';
 
+const rootUrl = 'http://localhost:3001/reminders';
+
 class RemindersForm extends React.Component {
   constructor(props) {
     super(props);
@@ -15,18 +17,38 @@ class RemindersForm extends React.Component {
   handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name);
-    console.log(value);
     this.setState({
       [name] : value
     })
+  };
+
+  handleOnBlur = () => {
+    const putData = {
+      title: this.state.title,
+      message: this.state.body,
+      time: this.state.time,
+      recipient_email_addresses: this.state.recipient_email_addresses
+    }
+
+    const editUrl = `${rootUrl}/${this.props.reminder.id}`;
+    console.log(editUrl)
+    fetch(editUrl, {
+      method: 'PUT',
+      body: JSON.stringify(putData),
+      headers: {
+        'Accept': 'application/json',
+        'content-type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+      .then(response => {console.log(response)})
   };
 
   render(){
     const { title, message, time, recipients } = this.state;
     return (
       <div className="tile">
-        <form>
+        <form onBlur={this.handleOnBlur}>
           <input
             type="text"
             className="input"
