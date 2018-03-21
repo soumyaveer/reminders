@@ -1,22 +1,25 @@
 import React from 'react';
+import DateTime from 'react-datetime';
 
 const rootUrl = 'http://localhost:3001/reminders';
 
 class RemindersForm extends React.Component {
   constructor(props) {
     super(props);
-    const { title, message, time, recipients } = this.props.reminder;
-    this.state ={
+    const { title, message, time, recipient_email_addresses } = this.props.reminder;
+    this.state = {
       title: title,
       message: message,
       time: time,
-      recipient_email_addresses: recipients
+      recipient_email_addresses: [recipient_email_addresses]
     }
   }
 
   handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    console.log(name);
+    console.log(value);
     this.setState({
       [name] : value
     })
@@ -25,10 +28,10 @@ class RemindersForm extends React.Component {
   handleOnBlur = () => {
     const putData = {
       title: this.state.title,
-      message: this.state.body,
+      message: this.state.message,
       time: this.state.time,
-      recipient_email_addresses: this.state.recipient_email_addresses
-    }
+      recipient_email_addresses: [this.state.recipient_email_addresses]
+    };
 
     const editUrl = `${rootUrl}/${this.props.reminder.id}`;
     console.log(editUrl)
@@ -41,11 +44,15 @@ class RemindersForm extends React.Component {
       },
     })
     .then(response => response.json())
-      .then(response => {console.log(response)})
+      .then(response => {
+        console.log(response);
+        this.props.updateReminder(response)
+      })
+      .catch(error => console.log(error))
   };
 
   render(){
-    const { title, message, time, recipients } = this.state;
+    const { title, message, time, recipient_email_addresses } = this.state;
     return (
       <div className="tile">
         <form onBlur={this.handleOnBlur}>
@@ -72,14 +79,14 @@ class RemindersForm extends React.Component {
             className="datetime"
             type="datetime-local"
             value={time}
-            onClick={this.handleOnChange}
+            onChange={this.handleOnChange}
           />
 
           <textarea
-            name="recipients"
+            name="recipient_email_addresses"
             className="input"
             placeholder="Enter Recipient Address (each address should be comma seperated)"
-            value={recipients}
+            value={recipient_email_addresses}
             onChange={this.handleOnChange}
           >
           </textarea>

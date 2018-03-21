@@ -97,6 +97,7 @@ textarea {
 }
 
 .datetime {
+  background: inherit;
   border: none;
   margin-left: 10px;
   width: 180px;

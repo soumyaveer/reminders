@@ -62,6 +62,15 @@ class RemindersList extends React.Component {
       .catch(error => console.log(error))
   };
 
+  updateReminder = (reminder) => {
+    const reminderIndex = this.state.reminders.findIndex(x => x.id === reminder.id)
+    const reminders = update(this.state.reminders, {
+      [reminderIndex] : {$set: reminder}
+    });
+
+    this.setState({ reminders: reminders })
+  };
+
   render() {
     const { reminders, editingReminderId} = this.state;
     return (
@@ -75,7 +84,10 @@ class RemindersList extends React.Component {
         <div className="reminders">
           {reminders.map((reminder) => {
             if(editingReminderId === reminder.id) {
-              return (<RemindersForm reminder={reminder} key={reminder.id} />)
+              return (<RemindersForm
+                reminder={reminder}
+                key={reminder.id}
+                updateReminder={this.updateReminder}/>)
             }
             return (<RemindersListItem reminder={reminder} key={reminder.id} />)
           })}
