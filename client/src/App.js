@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import RemindersList from './components/RemindersList'
-import ReactDOM from 'react-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import RemindersListItem from "./components/RemindersListItem";
+// import RemindersList from "./components/RemindersList";
+import RemindersForm from "./components/RemindersForm";
+import Home from './components/Home';
 
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <h1>Don't Forget!</h1>
-        </div>
-        <RemindersList />
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/reminders/:id" component={RemindersListItem} />
+          <Route path="/reminders/new" component={RemindersForm} />
+          <Route path="/reminders/edit" component={RemindersForm} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
