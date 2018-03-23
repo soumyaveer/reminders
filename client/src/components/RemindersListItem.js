@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 class RemindersListItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleOnClick = () => {
     this.props.onClick(this.props.reminder.id)
@@ -16,20 +13,20 @@ class RemindersListItem extends React.Component {
 
   render() {
     return (
-      <div >
-        <Link to={`/reminders/${this.props.reminder.id}`} className="tile">
-          <span className="deleteButton" onClick={this.handleDelete}>
+      <div className="tile">
+        <span className="deleteButton" onClick={this.handleDelete}>
             x
-          </span>
+        </span>
 
+        <Link to={`/reminders/${this.props.reminder.id}`} className="tile-link">
           <h4 onClick={this.handleOnClick}>
             {this.props.reminder.title}
           </h4>
+        </Link>
 
           <p onClick={this.handleOnClick}>
             {this.props.reminder.message}
           </p>
-        </Link>
       </div>
         )
       }

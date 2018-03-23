@@ -3,7 +3,6 @@ import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
 import RemindersForm from './RemindersForm';
 import update from 'immutability-helper';
-import Link from 'react-router';
 
 export const rootUrl = 'http://localhost:3001/reminders';
 
