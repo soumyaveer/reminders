@@ -40,6 +40,20 @@
   box-shadow: 5px 5px darkgrey;
 }
 
+.tile-large {
+  height: 400px;
+  width: 400px;
+  margin-left: 400px;
+  margin-top: 80px;
+  padding: 30px;
+  background: lightcyan;
+  font-size: 15px;
+  text-align: left;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  box-shadow: 5px 5px darkgrey;
+}
+
 .tile-header {
   height: 40px;
   width: 180px;
