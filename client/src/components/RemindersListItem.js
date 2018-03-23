@@ -19,7 +19,7 @@ class RemindersListItem extends React.Component {
       <div >
         <Link to={`/reminders/${this.props.reminder.id}`} className="tile">
           <span className="deleteButton" onClick={this.handleDelete}>
-          x
+            x
           </span>
 
           <h4 onClick={this.handleOnClick}>
