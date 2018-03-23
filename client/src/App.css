@@ -29,6 +29,7 @@
 
 .tile {
   height: 200px;
+  text-decoration: none;
   width: 200px;
   margin: 20px;
   background: lightcyan;

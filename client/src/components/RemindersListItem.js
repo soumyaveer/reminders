@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 class RemindersListItem extends React.Component {
   constructor(props) {
@@ -15,18 +16,20 @@ class RemindersListItem extends React.Component {
 
   render() {
     return (
-      <div className="tile">
-        <span className="deleteButton" onClick={this.handleDelete}>
+      <div >
+        <Link to={`/reminders/${this.props.reminder.id}`} className="tile">
+          <span className="deleteButton" onClick={this.handleDelete}>
           x
-        </span>
+          </span>
 
-        <h4 onClick={this.handleOnClick}>
-          {this.props.reminder.title}
+          <h4 onClick={this.handleOnClick}>
+            {this.props.reminder.title}
           </h4>
 
-        <p onClick={this.handleOnClick}>
-          {this.props.reminder.message}
+          <p onClick={this.handleOnClick}>
+            {this.props.reminder.message}
           </p>
+        </Link>
       </div>
         )
       }
