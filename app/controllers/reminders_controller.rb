@@ -7,8 +7,12 @@ class RemindersController < ApplicationController
   end
 
   def destroy
-    @reminder.destroy!
-    redirect_to reminders_url
+    @reminder = Reminder.find(params[:id])
+    if @reminder.destroy
+      head :no_content, status: :ok
+    else
+      render json: @reminder.errors, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -20,11 +24,8 @@ class RemindersController < ApplicationController
   end
 
   def show
-    @reminder = Reminder.find(params[:id])
-    respond_to do |format|
-      format.html { render :show }
-      format.json { render json: @reminders }
-    end
+    reminder = Reminder.find(params[:id])
+    render json: reminder
   end
 
   def update

@@ -1,5 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router';
+import Time from 'react-time';
 
 class ReminderDetails extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class ReminderDetails extends React.Component {
 
         <h4>Time:</h4>
         <p>
-          {this.state.reminder.time}
+          <Time value={this.state.reminder.time} locale="PDT" format="YYYY/MM/DD HH:mm:ss" />
         </p>
 
         <h4>Recipients</h4>
