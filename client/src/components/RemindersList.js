@@ -3,7 +3,7 @@ import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
 import RemindersForm from './RemindersForm';
 import update from 'immutability-helper';
-
+import Link from 'react-router';
 
 export const rootUrl = 'http://localhost:3001/reminders';
 
@@ -15,6 +15,7 @@ class RemindersList extends React.Component {
       reminders: [],
       editingReminderId: null
     }
+
   }
 
   componentDidMount() {
@@ -22,7 +23,6 @@ class RemindersList extends React.Component {
     fetch(getUrl)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         this.setState({
           reminders: response
         })
@@ -121,12 +121,14 @@ class RemindersList extends React.Component {
                 titleRef={input => this.title = input }
               />)
             }
-            return (<RemindersListItem
-              reminder={reminder}
-              key={reminder.id}
-              onClick={this.enableEditing}
-              onDelete={this.deleteReminder}
-            />)
+            return (
+              <RemindersListItem
+                reminder={reminder}
+                key={reminder.id}
+                onClick={this.enableEditing}
+                onDelete={this.deleteReminder}
+              />
+            )
           })}
         </div>
       </div>
