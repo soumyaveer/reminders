@@ -23,6 +23,10 @@ class RemindersController < ApplicationController
     render json: @reminders
   end
 
+  def new
+
+  end
+
   def show
     reminder = Reminder.find(params[:id])
     render json: reminder

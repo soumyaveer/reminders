@@ -11,11 +11,10 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path='/reminders/:id' component={ReminderDetails} />
+          <Route exact path='/reminders/:id' component={ReminderDetails} />
 
-          <Route path="/reminders/new" render={ (props) =>
-            <RemindersForm />} />
-          <Route path="/reminders/edit" component={RemindersForm} />
+          <Route  path="/new_form" component={RemindersForm } />
+          <Route  path="/reminders/edit/:id" component={RemindersForm } />
         </Switch>
       </BrowserRouter>
     );

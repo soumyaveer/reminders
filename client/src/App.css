@@ -8,10 +8,14 @@
 }
 
 .App-header {
+  font-family: "Chalkboard";
+  font-weight: bolder;
   text-align: center;
-  height: 150px;
+  height: 100px;
   padding: 20px;
-  color: darkcyan;
+  margin-bottom: 30px;
+  color: white;
+  background: lightseagreen;
 }
 
 .App-title {

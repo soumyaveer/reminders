@@ -1,25 +1,36 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 
 const rootUrl = 'http://localhost:3001/reminders';
 
 class RemindersForm extends React.Component {
   constructor(props) {
     super(props);
-    const { title, message, time, recipient_email_addresses } = this.props.reminder;
+    const { title, message, time } = this.props.reminder;
+    const recipient_email_addresses = this.props.reminder;
+    console.log(this.props.match.params.id)
     this.state = {
-      title: title,
-      message: message,
-      time: time,
-      recipient_email_addresses: [recipient_email_addresses]
+      title,
+      message,
+      time,
+      recipient_email_addresses:[recipient_email_addresses]
     }
   }
 
   handleOnChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    this.setState({
-      [name] : value
-    })
+    if (name === 'recipients_email_addresses') {
+      const values = value[0].split(", ")
+      this.setState({
+        name: values
+      })
+    } else {
+      this.setState({
+        [name] : value
+      })
+    }
+
   };
 
   handleOnBlur = () => {
@@ -30,7 +41,7 @@ class RemindersForm extends React.Component {
       recipient_email_addresses: [this.state.recipient_email_addresses]
     };
 
-    const editUrl = `${rootUrl}/${this.props.reminder.id}`;
+    const editUrl = `${rootUrl}/${this.props.match.params.id}`;
     console.log(editUrl)
     fetch(editUrl, {
       method: 'PUT',
@@ -50,6 +61,7 @@ class RemindersForm extends React.Component {
 
   render(){
     const { title, message, time, recipient_email_addresses } = this.state;
+    console.log("Form");
     return (
       <div className="tile">
         <form onBlur={this.handleOnBlur}>
@@ -96,4 +108,4 @@ class RemindersForm extends React.Component {
 
 }
 
-export default RemindersForm;
+export default withRouter(RemindersForm);
