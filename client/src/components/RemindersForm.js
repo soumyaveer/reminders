@@ -1,5 +1,4 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
 
 const rootUrl = 'http://localhost:3001/reminders';
 
@@ -8,7 +7,7 @@ class RemindersForm extends React.Component {
     super(props);
     const { title, message, time } = this.props.reminder;
     const recipient_email_addresses = this.props.reminder;
-    console.log(this.props.match.params.id)
+
     this.state = {
       title,
       message,
@@ -41,7 +40,7 @@ class RemindersForm extends React.Component {
       recipient_email_addresses: [this.state.recipient_email_addresses]
     };
 
-    const editUrl = `${rootUrl}/${this.props.match.params.id}`;
+    const editUrl = `${rootUrl}/${this.props.reminder.id}`;
     console.log(editUrl)
     fetch(editUrl, {
       method: 'PUT',
@@ -108,4 +107,4 @@ class RemindersForm extends React.Component {
 
 }
 
-export default withRouter(RemindersForm);
+export default RemindersForm;

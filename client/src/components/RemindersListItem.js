@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { withRouter, Link, Redirect } from 'react-router-dom';
 
 class RemindersListItem extends React.Component {
 
@@ -7,16 +7,13 @@ class RemindersListItem extends React.Component {
     this.props.onClick(this.props.reminder.id)
   };
 
-  handleDelete = () => {
-    this.props.onDelete(this.props.reminder.id)
-  };
-
   render() {
+    const deleteConfirmationUrl = `/reminders/${this.props.reminder.id}/delete_confirmation`;
     return (
       <div className="tile">
-        <span className="deleteButton" onClick={this.handleDelete}>
+        <Link className="deleteLink" to={deleteConfirmationUrl} >
             x
-        </span>
+        </Link>
 
         <Link to={`/reminders/${this.props.reminder.id}`} className="tile-link">
           <h4 onClick={this.handleOnClick}>

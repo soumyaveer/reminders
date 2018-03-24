@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import RemindersForm from "./components/RemindersForm";
 import Home from './components/Home';
 import ReminderDetails from "./components/ReminderDetails";
+import DeleteConfirmation from './components/DeleteConfirmation';
 
 class App extends Component {
   render() {
@@ -12,9 +13,9 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path='/reminders/:id' component={ReminderDetails} />
-
-          <Route  path="/new_form" component={RemindersForm } />
-          <Route  path="/reminders/edit/:id" component={RemindersForm } />
+          <Route path="/reminders/:id/delete_confirmation" component={DeleteConfirmation} />
+          <Route  path="/reminders/new" component={RemindersForm} />
+          {/*<Route  exact path="/reminders/edit/:id" component={RemindersForm } />*/}
         </Switch>
       </BrowserRouter>
     );
