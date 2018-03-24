@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class RemindersListItem extends React.Component {
 

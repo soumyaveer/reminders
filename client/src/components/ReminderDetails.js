@@ -35,12 +35,7 @@ class ReminderDetails extends React.Component {
 
   componentDidMount() {
     if (!!this.props.match) {
-      console.log(this.props.match.params);
-      if(this.props.match.params.id === 'new') {
-        this.displayNewForm();
-      } else {
-        this.findReminder(parseInt(this.props.match.params.id));
-      }
+        this.findReminder(parseInt(this.props.match.params.id, 10));
     }
   }
 

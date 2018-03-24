@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter, Redirect, browserHistory} from 'react-router';
+import {withRouter} from 'react-router';
 import Button from './Button'
 
 const rootUrl = 'http://localhost:3001/reminders';
@@ -10,8 +10,8 @@ class DeleteConfirmation  extends React.Component {
     console.log("Passed props:", props);
   }
 
-  handleDelete = (event) => {
-    this.deleteReminder(this.props.match.params.id)
+  handleDelete = () => {
+    this.deleteReminder(this.props.match.params.id);
     this.props.history.push('/')
 
   };
@@ -49,4 +49,4 @@ class DeleteConfirmation  extends React.Component {
 
 };
 
-export default DeleteConfirmation;
+export default withRouter(DeleteConfirmation);

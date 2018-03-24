@@ -12,7 +12,7 @@ class RemindersForm extends React.Component {
       title,
       message,
       time,
-      recipient_email_addresses:[recipient_email_addresses]
+      recipient_email_addresses: recipient_email_addresses
     }
   }
 
@@ -87,7 +87,7 @@ class RemindersForm extends React.Component {
             name="time"
             className="datetime"
             type="datetime-local"
-            value={time}
+            value={time || ''}
             onChange={this.handleOnChange}
           />
 
