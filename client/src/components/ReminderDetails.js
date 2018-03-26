@@ -52,13 +52,9 @@ class ReminderDetails extends React.Component {
         </p>
 
         <h4>Recipients</h4>
-        <ul>
-          {this.state.reminder.recipient_email_addresses.map((recipient, index) => {
-            return (
-              <li key={index}>{recipient}</li>
-            )
-          })}
-        </ul>
+        <p>
+          {this.state.reminder.recipient_email_address_values}
+        </p>
 
       </div>
     )

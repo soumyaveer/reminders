@@ -6,13 +6,13 @@ class RemindersForm extends React.Component {
   constructor(props) {
     super(props);
     const { title, message, time } = this.props.reminder;
-    const recipient_email_addresses = this.props.reminder;
+    const recipient_email_address_values = this.props.reminder;
 
     this.state = {
       title,
       message,
       time,
-      recipient_email_addresses: recipient_email_addresses
+      recipient_email_address_values: recipient_email_address_values
     }
   }
 
@@ -30,7 +30,7 @@ class RemindersForm extends React.Component {
       title: this.state.title,
       message: this.state.message,
       time: this.state.time,
-      recipient_email_addresses: this.state.recipient_email_addresses
+      recipient_email_address_values: this.state.recipient_email_address_values
     };
 
     const editUrl = `${rootUrl}/${this.props.reminder.id}`;
@@ -52,7 +52,7 @@ class RemindersForm extends React.Component {
   };
 
   render(){
-    const { title, message, time, recipient_email_addresses } = this.state;
+    const { title, message, time, recipient_email_address_values } = this.state;
     return (
       <div className="tile">
         <form onBlur={this.handleOnBlur}>
@@ -87,7 +87,7 @@ class RemindersForm extends React.Component {
             name="recipient_email_addresses"
             className="input"
             placeholder="Enter Recipient Address (each address should be comma separated)"
-            value={recipient_email_addresses}
+            value={recipient_email_address_values}
             onChange={this.handleOnChange}
           >
           </textarea>
