@@ -1,7 +1,6 @@
 import React from 'react';
-import {withRouter, Redirect} from 'react-router';
+import {withRouter} from 'react-router';
 import Time from 'react-time';
-import RemindersForm from './RemindersForm';
 
 class ReminderDetails extends React.Component {
   constructor(props) {
@@ -16,10 +15,6 @@ class ReminderDetails extends React.Component {
       }
     }
   }
-
-  displayNewForm = () => {
-    return (<Redirect to="/reminders/new" component={RemindersForm}/> )
-  };
 
   findReminder = (matchParamsId) => {
     const reminderUrl = `http://localhost:3001/reminders/${matchParamsId}.json`;
@@ -53,7 +48,7 @@ class ReminderDetails extends React.Component {
 
         <h4>Time:</h4>
         <p>
-          <Time value={this.state.reminder.time} locale="PDT" format="YYYY/MM/DD HH:mm:ss" />
+          <Time value={this.state.reminder.time} locale="PDT" format="YYYY/MM/DD HH:mm" />
         </p>
 
         <h4>Recipients</h4>

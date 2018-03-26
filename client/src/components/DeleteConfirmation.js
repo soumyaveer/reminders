@@ -12,8 +12,6 @@ class DeleteConfirmation  extends React.Component {
 
   handleDelete = () => {
     this.deleteReminder(this.props.match.params.id);
-    this.props.history.push('/')
-
   };
 
   deleteReminder = (id) => {
@@ -27,7 +25,8 @@ class DeleteConfirmation  extends React.Component {
       },
     })
       .then (response => console.log(response))
-      .catch(error => console.log(error))
+      .then (response =>
+        this.redirectToHome())
   };
 
   redirectToHome = () => {
@@ -40,7 +39,7 @@ class DeleteConfirmation  extends React.Component {
         <h3>Do you want to delete this reminder?</h3>
 
         <span>
-          <Button className="delete-button" onClick={this.handleDelete} >Yes</Button>
+          <Button className="delete-button" onClick={this.handleDelete}>Yes</Button>
           <Button className="button" onClick={this.redirectToHome} >No</Button>
         </span>
       </div>

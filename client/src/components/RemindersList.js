@@ -35,7 +35,7 @@ class RemindersList extends React.Component {
         title: '',
         message: '',
         time: '',
-        recipient_email_addresses: []
+        recipient_email_addresses: ''
       }
     };
 
@@ -52,7 +52,6 @@ class RemindersList extends React.Component {
       })
       .then(response => response.json())
       .then(response => {
-        console.log("New response", response);
         const reminders = update(this.state.reminders, {
           $splice: [[0,0, response]]
         });
@@ -65,7 +64,7 @@ class RemindersList extends React.Component {
   };
 
   updateReminder = (reminder) => {
-    const reminderIndex = this.state.reminders.findIndex(x => x.id === reminder.id)
+    const reminderIndex = this.state.reminders.findIndex(x => x.id === reminder.id);
     const reminders = update(this.state.reminders, {
       [reminderIndex] : {$set: reminder}
     });

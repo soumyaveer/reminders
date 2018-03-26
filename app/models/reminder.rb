@@ -16,6 +16,10 @@ class Reminder < ApplicationRecord
     self.recipient_email_addresses = values.split(",")
   end
 
+  def recipient_email_address_values
+    self.recipient_email_addresses.join(", ")
+  end
+
   private
 
   def enqueue_sidekiq_job
