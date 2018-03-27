@@ -1,8 +1,6 @@
 require 'sidekiq/api'
 
 class Reminder < ApplicationRecord
-  include ActiveModel::Dirty
-
   # validates :title, uniqueness: true
   # validates :title, :time, :recipient_email_addresses, presence: true
 
@@ -12,7 +10,7 @@ class Reminder < ApplicationRecord
 
   scope :order_by_created_at, -> { order(created_at: :desc) }
 
-  def as_json
+  def as_json(options = nil)
     options = {
       except: [
         :recipient_email_addresses,

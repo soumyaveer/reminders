@@ -1,8 +1,8 @@
 class RemindersController < ApplicationController
-  before_action :load_reminder, only: [:update, :edit, :destroy, :show]
+  before_action :load_reminder, only: [:update, :destroy, :show]
 
   def create
-    reminder = Reminder.create(reminder_params)
+    reminder = Reminder.create!(reminder_params)
     render json: reminder.as_json
   end
 
@@ -14,25 +14,19 @@ class RemindersController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def index
-    @reminders = Reminder.order_by_created_at
-    render json: @reminders.as_json
-  end
-
-  def new
+    reminders = Reminder.order_by_created_at
+    render json: reminders
   end
 
   def show
-    render json: @reminder.as_json
+    render json: @reminder
   end
 
   def update
-    @reminder.update_attributes(reminder_params)
+    @reminder.update_attributes!(reminder_params)
 
-    render json: @reminder.as_json
+    render json: @reminder
   end
 
   private
