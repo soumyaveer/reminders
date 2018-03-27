@@ -14,8 +14,8 @@
   height: 100px;
   padding: 20px;
   margin-bottom: 30px;
-  color: white;
-  background: lightseagreen;
+  color: lightcyan;
+  background: darkcyan;
 }
 
 .App-title {
@@ -39,6 +39,7 @@
   background: lightcyan;
   float: left;
   font-size: 13px;
+  font-family: "Chalkboard";
   text-align: left;
   border: 1px solid lightgrey;
   border-radius: 5px;
@@ -53,6 +54,7 @@
   padding: 30px;
   background: lightcyan;
   font-size: 15px;
+  font-family: "Chalkboard";
   text-align: left;
   border: 1px solid lightgrey;
   border-radius: 5px;
@@ -82,13 +84,14 @@
 }
 
 .button, .new-button {
-  background: lightseagreen;
+  background: darkcyan;
   border: 1px solid darkgrey;
   border-radius: 5px;
   cursor: pointer;
   color: white;
   text-align: center;
   font-size: 15px;
+  font-family: "Chalkboard";
   padding: 5px;
   margin-right: 10px;
 }
