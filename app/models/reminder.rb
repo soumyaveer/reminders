@@ -12,8 +12,24 @@ class Reminder < ApplicationRecord
 
   scope :order_by_created_at, -> { order(created_at: :desc) }
 
+  def as_json
+    options = {
+      except: [
+        :recipient_email_addresses,
+        :sidekiq_job_id,
+        :created_at,
+        :updated_at
+      ],
+      methods: [
+        :recipient_email_address_values
+      ]
+    }
+
+    super(options)
+  end
+
   def recipient_email_address_values=(values)
-    self.recipient_email_addresses = values.split(",")
+    self.recipient_email_addresses = values.split(",").map(&:strip)
   end
 
   def recipient_email_address_values

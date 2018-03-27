@@ -31,12 +31,10 @@ class RemindersList extends React.Component {
 
   addNewReminder = () => {
     let postReminder = {
-      reminder: {
         title: '',
         message: '',
         time: '',
-        recipient_email_addresses: ''
-      }
+        recipient_email_address_values: ''
     };
 
     const postUrl = `${rootUrl}.json`;
@@ -65,11 +63,14 @@ class RemindersList extends React.Component {
 
   updateReminder = (reminder) => {
     const reminderIndex = this.state.reminders.findIndex(x => x.id === reminder.id);
+
     const reminders = update(this.state.reminders, {
       [reminderIndex] : {$set: reminder}
     });
 
-    this.setState({ reminders: reminders })
+    this.setState({
+      reminders
+    })
   };
 
   enableEditing = (id) => {

@@ -11,7 +11,7 @@ class ReminderDetails extends React.Component {
         title: '',
         message: '',
         time: '',
-        recipient_email_addresses: []
+        recipient_email_address_values: ''
       }
     }
   }
@@ -22,6 +22,7 @@ class ReminderDetails extends React.Component {
     fetch(reminderUrl)
       .then(response => response.json())
       .then(reminder => {
+
         this.setState({
           reminder
         })

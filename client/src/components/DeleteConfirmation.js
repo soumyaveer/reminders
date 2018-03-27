@@ -5,11 +5,6 @@ import Button from './Button'
 const rootUrl = 'http://localhost:3001/reminders';
 
 class DeleteConfirmation  extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log("Passed props:", props);
-  }
-
   handleDelete = () => {
     this.deleteReminder(this.props.match.params.id);
   };

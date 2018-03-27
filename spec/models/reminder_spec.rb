@@ -29,17 +29,4 @@ describe Reminder do
       expect(@reminder.valid?).to eql(true)
     end
   end
-
-  describe 'recipient_email_address_values' do
-    before do
-      @reminder = FactoryBot.create(:reminder)
-    end
-
-    it 'returns recipient addresses' do
-      recipients = @reminder.recipient_email_address_values=(@reminder.recipient_email_addresses)
-
-      expect(recipients).to match_array([@reminder.recipient_email_addresses[0][0],
-                                         @reminder.recipient_email_addresses[0][1]])
-    end
-  end
 end

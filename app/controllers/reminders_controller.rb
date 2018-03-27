@@ -3,7 +3,7 @@ class RemindersController < ApplicationController
 
   def create
     reminder = Reminder.create(reminder_params)
-    render json: reminder
+    render json: reminder.as_json
   end
 
   def destroy
@@ -19,27 +19,20 @@ class RemindersController < ApplicationController
 
   def index
     @reminders = Reminder.order_by_created_at
-    render json: @reminders.as_json(except: [:recipient_email_addresses,
-                                             :sidekiq_job_id,
-                                             :created_at,
-                                             :updated_at],
-                                    methods: :recipient_email_address_values)
+    render json: @reminders.as_json
   end
 
   def new
   end
 
   def show
-    render json: @reminder.as_json(except: [:recipient_email_addresses,
-                                            :sidekiq_job_id,
-                                            :created_at,
-                                            :updated_at],
-                                   methods: :recipient_email_address_values)
+    render json: @reminder.as_json
   end
 
   def update
     @reminder.update_attributes(reminder_params)
-    render json: @reminder
+
+    render json: @reminder.as_json
   end
 
   private
@@ -50,13 +43,11 @@ class RemindersController < ApplicationController
 
   def reminder_params
     params.require(:reminder).permit(
+      :recipient_email_address_values,
       :title,
       :message,
       :time,
-      :recipient_email_address_values=,
-      :recipient_email_address_values,
-      recipient_email_addresses: []
-
+      :recipient_email_addresses
     )
   end
 end
