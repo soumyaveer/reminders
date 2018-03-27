@@ -1,4 +1,4 @@
-describe RemindersController do
+describe API::RemindersController do
   describe "PATCH update" do
     it "updates the reminder" do
       reminder = FactoryBot.create(:reminder)

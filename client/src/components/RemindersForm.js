@@ -1,6 +1,6 @@
 import React from 'react';
 
-const rootUrl = 'http://localhost:3001/reminders';
+const rootUrl = '/api/reminders';
 
 class RemindersForm extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class RemindersForm extends React.Component {
       }
     };
 
-    const patchURL = `${rootUrl}/${this.props.reminder.id}.json`;
+    const patchURL = `/api/reminders/${this.props.reminder.id}.json`;
 
     fetch(patchURL, {
       method: 'PUT',

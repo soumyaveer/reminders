@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router';
 import Button from './Button'
 
-const rootUrl = 'http://localhost:3001/reminders';
+const rootUrl = '/api/reminders';
 
 class DeleteConfirmation  extends React.Component {
   handleDelete = () => {

@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  resources :reminders
+  namespace :api do
+    resources :reminders
+  end
 end

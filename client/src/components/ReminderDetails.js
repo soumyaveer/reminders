@@ -17,7 +17,7 @@ class ReminderDetails extends React.Component {
   }
 
   findReminder = (matchParamsId) => {
-    const reminderUrl = `http://localhost:3001/reminders/${matchParamsId}.json`;
+    const reminderUrl = `/api/reminders/${matchParamsId}.json`;
 
     fetch(reminderUrl)
       .then(response => response.json())

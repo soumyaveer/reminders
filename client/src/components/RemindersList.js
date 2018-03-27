@@ -4,7 +4,7 @@ import Button from './Button';
 import RemindersForm from './RemindersForm';
 import update from 'immutability-helper';
 
-const rootUrl = 'http://localhost:3001/reminders';
+const rootUrl = '/api/reminders';
 
 class RemindersList extends React.Component {
   constructor(props) {
