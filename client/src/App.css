@@ -14,7 +14,7 @@
   height: 100px;
   padding: 20px;
   margin-bottom: 30px;
-  color: lightcyan;
+  color: white;
   background: darkcyan;
 }
 
@@ -61,9 +61,16 @@
   box-shadow: 5px 5px darkgrey;
 }
 
-.tile-link {
+.tile-link , .link {
   color: darkcyan;
   text-decoration: none;
+}
+
+.back-link {
+  color: darkcyan;
+  text-decoration: none;
+  text-align: right;
+  float: right;
 }
 
 .tile-header {
@@ -110,7 +117,7 @@
 
 .button:hover, .new-button:hover {
   background: transparent;
-  color: lightseagreen;
+  color: darkcyan;
   box-shadow: 5px 5px darkgrey;
 }
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router';
+import { Link } from 'react-router-dom';
+
 import Time from 'react-time';
 
 class ReminderDetails extends React.Component {
@@ -56,6 +58,8 @@ class ReminderDetails extends React.Component {
         <p>
           {this.state.reminder.recipient_email_address_values}
         </p>
+
+        <Link className="back-link" to="/">Back</Link>
 
       </div>
     )
