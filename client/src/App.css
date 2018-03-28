@@ -8,10 +8,14 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  font-family: "Chalkboard";
+  font-weight: bolder;
+  text-align: center;
+  height: 100px;
   padding: 20px;
+  margin-bottom: 30px;
   color: white;
+  background: darkcyan;
 }
 
 .App-title {
@@ -25,4 +29,152 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.tile {
+  height: 200px;
+  width: 200px;
+  margin: 20px;
+  padding: 10px;
+  background: lightcyan;
+  float: left;
+  font-size: 13px;
+  font-family: "Chalkboard";
+  text-align: left;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  box-shadow: 5px 5px darkgrey;
+}
+
+.tile-large {
+  height: 400px;
+  width: 400px;
+  margin-left: 400px;
+  margin-top: 80px;
+  padding: 30px;
+  background: lightcyan;
+  font-size: 15px;
+  font-family: "Chalkboard";
+  text-align: left;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  box-shadow: 5px 5px darkgrey;
+}
+
+.tile-link , .link {
+  color: darkcyan;
+  text-decoration: none;
+}
+
+.back-link {
+  color: darkcyan;
+  text-decoration: none;
+  text-align: right;
+  float: right;
+}
+
+.tile-header {
+  height: 40px;
+  width: 180px;
+  margin-left: 10px;
+
+}
+
+.tile-body {
+  height: 150px;
+  width: 180px;
+  margin-left: 10px;
+}
+
+.tile:hover .deleteLink {
+  visibility: visible;
+}
+
+.button, .new-button {
+  background: darkcyan;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  font-family: "Chalkboard";
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.delete-button {
+  background: red;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.button:hover, .new-button:hover {
+  background: transparent;
+  color: darkcyan;
+  box-shadow: 5px 5px darkgrey;
+}
+
+.delete-button:hover {
+  background: transparent;
+  color: red;
+  box-shadow: 5px 5px darkgrey;
+}
+
+.reminders {
+  margin: 20px;
+  padding: 10px;
+}
+
+.input {
+  border: 0;
+  background: none;
+  outline: none;
+  margin-top:10px;
+  margin-left: 5px;
+  margin-right: 10px;
+  width: 180px;
+  font-size: 11px;
+}
+
+.input:focus {
+  border: solid 2px lightgrey;
+}
+
+textarea {
+  resize: none;
+  height: 50px;
+  font-size: 16px;
+}
+
+.datetime {
+  background: inherit;
+  border: none;
+  margin-left: 10px;
+  width: 180px;
+  height: 20px;
+}
+
+.deleteLink {
+  visibility: hidden;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  float: right;
+  margin: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  color: red;
+  text-decoration: none;
+}
+
+.delete-confirmation {
+  margin-top: 80px;
+  color: red;
+  text-align: center;
 }
