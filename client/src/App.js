@@ -14,8 +14,6 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path='/reminders/:id' component={ReminderDetails} />
           <Route path="/reminders/:id/delete_confirmation" component={DeleteConfirmation} />
-          <Route  path="/reminders/new" component={RemindersForm} />
-          {/*<Route  exact path="/reminders/edit/:id" component={RemindersForm } />*/}
         </Switch>
       </BrowserRouter>
     );
