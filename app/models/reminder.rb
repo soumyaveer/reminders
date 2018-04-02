@@ -1,8 +1,7 @@
 require 'sidekiq/api'
 
 class Reminder < ApplicationRecord
-  # validates :title, uniqueness: true
-  # validates :title, :time, :recipient_email_addresses, presence: true
+  validates :title, uniqueness: true
 
   after_create :enqueue_sidekiq_job
   after_destroy :remove_sidekiq_job
