@@ -3,59 +3,26 @@ import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
 import RemindersForm from './RemindersForm';
 import update from 'immutability-helper';
-import { fetchReminders } from '../actions';
+import {addReminder, fetchReminders} from '../actions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class RemindersList extends React.Component {
+  addNewReminder = () => {
+    const reminderAttributes = {
+      message: '',
+      recipient_email_address_values: '',
+      time: '',
+      title: ''
+    };
+
+    this.props.dispatch(addReminder(reminderAttributes));
+  };
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchReminders());
   }
-
-  addNewReminder = () => {
-    let postReminder = {
-        title: '',
-        message: '',
-        time: '',
-        recipient_email_address_values: ''
-    };
-
-    const postUrl = `${'/api/reminders'}.json`;
-
-    fetch(postUrl,
-      {
-        method: 'POST',
-        body: JSON.stringify(postReminder),
-        headers: {
-          'Accept': 'application/json',
-          'content-type': 'application/json'
-        },
-      })
-      .then(response => response.json())
-      .then(response => {
-        const reminders = update(this.state.reminders, {
-          $splice: [[0,0, response]]
-        });
-        this.setState({
-          reminders: reminders,
-          editingReminderId: response.id
-        })
-      })
-      .catch(error => console.log(error))
-  };
-
-  updateReminder = (reminder) => {
-    const reminderIndex = this.state.reminders.findIndex(x => x.id === reminder.id);
-
-    const reminders = update(this.state.reminders, {
-      [reminderIndex] : {$set: reminder}
-    });
-
-    this.setState({
-      reminders
-    })
-  };
 
   enableEditing = (id) => {
     this.setState({
@@ -96,6 +63,18 @@ class RemindersList extends React.Component {
       </div>
     )
   }
+
+  updateReminder = (reminder) => {
+    const reminderIndex = this.state.reminders.findIndex(x => x.id === reminder.id);
+
+    const reminders = update(this.state.reminders, {
+      [reminderIndex] : {$set: reminder}
+    });
+
+    this.setState({
+      reminders
+    })
+  };
 }
 
 RemindersList.propTypes = {
