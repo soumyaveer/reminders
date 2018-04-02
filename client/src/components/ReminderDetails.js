@@ -1,69 +1,69 @@
 import React from 'react';
-import {withRouter} from 'react-router';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {fetchReminder} from "../actions";
 
 import Time from 'react-time';
+import {connect} from "react-redux";
 
 class ReminderDetails extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      reminder: {
-        title: '',
-        message: '',
-        time: '',
-        recipient_email_address_values: ''
-      }
-    }
-  }
-
-  findReminder = (matchParamsId) => {
-    const reminderUrl = `/api/reminders/${matchParamsId}.json`;
-
-    fetch(reminderUrl)
-      .then(response => response.json())
-      .then(reminder => {
-
-        this.setState({
-          reminder
-        })
-      })
-  };
-
   componentDidMount() {
-    if (!!this.props.match) {
-        this.findReminder(parseInt(this.props.match.params.id, 10));
-    }
+    const reminderId = this.props.match.params.id;
+    this.props.handleFetchReminder(reminderId);
   }
 
   render() {
-    return (
-      <div className="tile-large">
-        <h2>
-          {this.state.reminder.title}
-        </h2>
+    const reminder = this.props.reminder;
 
-        <h4>Message:</h4>
-        <p>
-          {this.state.reminder.message}
-        </p>
+    if (reminder) {
+      return (
+        <div className="tile-large">
+          <h2>
+            {this.props.reminder.title}
+          </h2>
 
-        <h4>Time:</h4>
-        <p>
-          <Time value={this.state.reminder.time} locale="PDT" format="YYYY/MM/DD HH:mm" />
-        </p>
+          <div className="reminder-details">
+            <label className="reminder-label">Message:</label>
+            <p className="reminder-details-info">
+              {this.props.reminder.message}
+            </p>
+          </div>
 
-        <h4>Recipients</h4>
-        <p>
-          {this.state.reminder.recipient_email_address_values}
-        </p>
+          <div className="reminder-details">
+            <label className="reminder-label">Time:</label>
+            <p className="reminder-details-info">
+              {<Time value={this.props.reminder.time} utc={true} format="YYYY/MM/DD HH:mm"/> || ''}
+            </p>
+          </div>
 
-        <Link className="back-link" to="/">Back</Link>
+          <div className="reminder-details">
+            <label className="reminder-label">Recipients</label>
+            <p className="reminder-details-info">
+              {this.props.reminder.recipient_email_address_values}
+            </p>
+          </div>
 
-      </div>
-    )
+          <Link className="back-link" to="/">Back</Link>
+        </div>
+      )
+    } else {
+      return (
+        <div>Loading ...</div>
+      )
+    }
   }
 }
 
-export default withRouter(ReminderDetails);
+const mapStateToProps = (storeState) => {
+  return {reminder: storeState.reminderInDetailMode};
+};
+
+// https://learn.co/tracks/full-stack-web-development-v3/redux/redux-library/map-dispatch-to-props-readme
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleFetchReminder: (reminderId) => {
+      return dispatch(fetchReminder(reminderId));
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReminderDetails);

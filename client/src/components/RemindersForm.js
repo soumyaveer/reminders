@@ -1,63 +1,49 @@
 import React from 'react';
-
-const rootUrl = '/api/reminders';
+import {updateReminder} from "../actions";
+import {connect} from "react-redux";
 
 class RemindersForm extends React.Component {
   constructor(props) {
     super(props);
-    const { title, message, time, recipient_email_address_values } = this.props.reminder;
 
-    this.state = {
-      title,
+    const {
       message,
+      id,
+      recipient_email_address_values,
       time,
-      recipient_email_address_values
-    }
-  }
+      title
+    } = props.reminder;
+
+    // this represents the reminder being edited
+    this.state = {
+      message,
+      id,
+      recipient_email_address_values,
+      time,
+      title
+    };
+
+    // Question: is this ok?
+    // this.state = {
+    //   unsavedReminderAttributes: this.props.reminder
+    // };
+  };
 
   handleOnChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const reminderAttributeName = event.target.name;
+    const reminderAttributeValue = event.target.value;
 
     this.setState({
-      [name]: value
+      [reminderAttributeName]: reminderAttributeValue
     });
   };
 
-  handleOnBlur = () => {
-    const {title, message, time, recipient_email_address_values} = this.state;
+  render() {
+    const {title, message, id, time, recipient_email_address_values} = this.state;
 
-    const requestParams = {
-      reminder: {
-        title,
-        message,
-        time,
-        recipient_email_address_values
-      }
-    };
-
-    const patchURL = `/api/reminders/${this.props.reminder.id}.json`;
-
-    fetch(patchURL, {
-      method: 'PUT',
-      body: JSON.stringify(requestParams),
-      headers: {
-        'Accept': 'application/json',
-        'content-type': 'application/json'
-      },
-    })
-      .then(response => {
-        const reminderJSON = JSON.parse(response);
-        this.props.updateReminder(reminderJSON);
-      })
-      .catch(error => console.log(error))
-  };
-
-  render(){
-    const { title, message, time, recipient_email_address_values } = this.state;
     return (
       <div className="tile">
-        <form onBlur={this.handleOnBlur}>
+        <form onBlur={() => this.props.handleOnBlur({title, id, message, time, recipient_email_address_values})}>
           <input
             type="text"
             className="input"
@@ -65,7 +51,6 @@ class RemindersForm extends React.Component {
             placeholder="Enter Title"
             value={title}
             onChange={this.handleOnChange}
-            ref={this.props.titleRef}
           />
 
           <textarea
@@ -93,12 +78,23 @@ class RemindersForm extends React.Component {
             onChange={this.handleOnChange}
           >
           </textarea>
-
         </form>
       </div>
     )
-  }
+  };
+};
 
-}
+const mapStateToProps = () => {
+  return {};
+};
 
-export default RemindersForm;
+// https://learn.co/tracks/full-stack-web-development-v3/redux/redux-library/map-dispatch-to-props-readme
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleOnBlur: (reminderAttributes) => {
+      dispatch(updateReminder(reminderAttributes));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RemindersForm);

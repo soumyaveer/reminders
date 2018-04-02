@@ -2,85 +2,34 @@ import React from 'react';
 import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
 import RemindersForm from './RemindersForm';
-import update from 'immutability-helper';
-
-const rootUrl = '/api/reminders';
+import {addReminder, editReminder, fetchReminders} from '../actions';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class RemindersList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      reminders: [],
-      editingReminderId: null
-    }
-
-  }
-
-  componentDidMount() {
-    const getUrl = `${rootUrl}.json`;
-    fetch(getUrl)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          reminders: response
-        })
-      })
-      .catch(error => console.log(error))
-  }
-
   addNewReminder = () => {
-    let postReminder = {
-        title: '',
-        message: '',
-        time: '',
-        recipient_email_address_values: ''
+    const reminderAttributes = {
+      message: '',
+      recipient_email_address_values: '',
+      time: '',
+      title: ''
     };
 
-    const postUrl = `${rootUrl}.json`;
-
-    fetch(postUrl,
-      {
-        method: 'POST',
-        body: JSON.stringify(postReminder),
-        headers: {
-          'Accept': 'application/json',
-          'content-type': 'application/json'
-        },
-      })
-      .then(response => response.json())
-      .then(response => {
-        const reminders = update(this.state.reminders, {
-          $splice: [[0,0, response]]
-        });
-        this.setState({
-          reminders: reminders,
-          editingReminderId: response.id
-        })
-      })
-      .catch(error => console.log(error))
+    this.props.dispatch(addReminder(reminderAttributes));
   };
 
-  updateReminder = (reminder) => {
-    const reminderIndex = this.state.reminders.findIndex(x => x.id === reminder.id);
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchReminders());
+  }
 
-    const reminders = update(this.state.reminders, {
-      [reminderIndex] : {$set: reminder}
-    });
-
-    this.setState({
-      reminders
-    })
-  };
-
-  enableEditing = (id) => {
-    this.setState({
-      editingReminderId: id
-    }, () => { this.title.focus() })
+  enableEditing = (reminder) => {
+    this.props.dispatch(editReminder(reminder));
   };
 
   render() {
-    const { reminders, editingReminderId} = this.state;
+    const {reminders, reminderInEditMode} = this.props;
+
     return (
       <div>
         <div>
@@ -91,14 +40,15 @@ class RemindersList extends React.Component {
 
         <div className="reminders">
           {reminders.map((reminder) => {
-            if(editingReminderId === reminder.id) {
-              return (<RemindersForm
-                reminder={reminder}
-                key={reminder.id}
-                updateReminder={this.updateReminder}
-                titleRef={input => this.title = input }
-              />)
+            if (reminderInEditMode === reminder) {
+              return (
+                <RemindersForm
+                  reminder={reminder}
+                  key={reminder.id}
+                />
+              )
             }
+
             return (
               <RemindersListItem
                 reminder={reminder}
@@ -110,7 +60,19 @@ class RemindersList extends React.Component {
         </div>
       </div>
     )
-  }
+  };
 }
 
-export default RemindersList;
+RemindersList.propTypes = {
+  reminderInEditMode: PropTypes.object,
+  reminders: PropTypes.array.isRequired
+};
+
+function mapStateToProps(storeState) {
+  return {
+    reminderInEditMode: storeState.reminderInEditMode,
+    reminders: storeState.reminders
+  };
+}
+
+export default connect(mapStateToProps)(RemindersList);

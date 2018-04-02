@@ -71,6 +71,7 @@
   text-decoration: none;
   text-align: right;
   float: right;
+  margin-top: 150px;
 }
 
 .tile-header {
@@ -177,4 +178,19 @@ textarea {
   margin-top: 80px;
   color: red;
   text-align: center;
+}
+
+
+
+.reminder-details {
+  margin-bottom: 10px;
+}
+
+.reminder-label {
+  font-weight:bold;
+}
+
+.reminder-details-info {
+  display: inline;
+  margin-left: 10px;
 }
