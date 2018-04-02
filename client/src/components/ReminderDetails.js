@@ -20,19 +20,27 @@ class ReminderDetails extends React.Component {
           <h2>
             {this.props.reminder.title}
           </h2>
-          <h4>Message:</h4>
-          <p>
-            {this.props.reminder.message}
-          </p>
-          <h4>Time:</h4>
-          <p>
-            <Time value={this.props.reminder.time} utc={true} format="YYYY/MM/DD HH:mm"/>
-          </p>
 
-          <h4>Recipients</h4>
-          <p>
-            {this.props.reminder.recipient_email_address_values}
-          </p>
+          <div className="reminder-details">
+            <label className="reminder-label">Message:</label>
+            <p className="reminder-details-info">
+              {this.props.reminder.message}
+            </p>
+          </div>
+
+          <div className="reminder-details">
+            <label className="reminder-label">Time:</label>
+            <p className="reminder-details-info">
+              {<Time value={this.props.reminder.time} utc={true} format="YYYY/MM/DD HH:mm"/> || ''}
+            </p>
+          </div>
+
+          <div className="reminder-details">
+            <label className="reminder-label">Recipients</label>
+            <p className="reminder-details-info">
+              {this.props.reminder.recipient_email_address_values}
+            </p>
+          </div>
 
           <Link className="back-link" to="/">Back</Link>
         </div>
