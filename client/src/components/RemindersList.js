@@ -2,8 +2,7 @@ import React from 'react';
 import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
 import RemindersForm from './RemindersForm';
-import update from 'immutability-helper';
-import {addReminder, fetchReminders} from '../actions';
+import {addReminder, editReminder, fetchReminders} from '../actions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -24,14 +23,12 @@ class RemindersList extends React.Component {
     dispatch(fetchReminders());
   }
 
-  enableEditing = (id) => {
-    this.setState({
-      editingReminderId: id
-    }, () => { this.title.focus() })
+  enableEditing = (reminder) => {
+    this.props.dispatch(editReminder(reminder));
   };
 
   render() {
-    const { dispatch, reminders, editingReminderId} = this.props;
+    const {reminders, reminderInEditMode} = this.props;
 
     return (
       <div>
@@ -43,14 +40,15 @@ class RemindersList extends React.Component {
 
         <div className="reminders">
           {reminders.map((reminder) => {
-            if(editingReminderId === reminder.id) {
-              return (<RemindersForm
-                reminder={reminder}
-                key={reminder.id}
-                updateReminder={this.updateReminder}
-                titleRef={input => this.title = input }
-              />)
+            if (reminderInEditMode === reminder) {
+              return (
+                <RemindersForm
+                  reminder={reminder}
+                  key={reminder.id}
+                />
+              )
             }
+
             return (
               <RemindersListItem
                 reminder={reminder}
@@ -62,31 +60,18 @@ class RemindersList extends React.Component {
         </div>
       </div>
     )
-  }
-
-  updateReminder = (reminder) => {
-    const reminderIndex = this.state.reminders.findIndex(x => x.id === reminder.id);
-
-    const reminders = update(this.state.reminders, {
-      [reminderIndex] : {$set: reminder}
-    });
-
-    this.setState({
-      reminders
-    })
   };
 }
 
 RemindersList.propTypes = {
-  editingReminderId: PropTypes.number,
+  reminderInEditMode: PropTypes.object,
   reminders: PropTypes.array.isRequired
 };
 
-// map the store's state to the component's props
-function mapStateToProps(state) {
+function mapStateToProps(storeState) {
   return {
-    editingReminderId: state.editingReminderId || null,
-    reminders: state.reminders || []
+    reminderInEditMode: storeState.reminderInEditMode,
+    reminders: storeState.reminders
   };
 }
 

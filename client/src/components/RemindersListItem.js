@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 const RemindersListItem = (props) => {
   const deleteConfirmationPath = `/reminders/${props.reminder.id}/delete_confirmation`;
   const handleClick = () => {
-    return props.onClick(props.reminder.id)
+    return props.onClick(props.reminder)
   };
 
   return (
