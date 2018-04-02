@@ -1,6 +1,7 @@
 export const ADD_REMINDER = 'ADD_REMINDER';
 export const DELETE_REMINDER = 'DELETE_REMINDER';
 export const EDIT_REMINDER = 'EDIT_REMINDER';
+export const FETCH_REMINDER = 'FETCH_REMINDER';
 export const FETCH_REMINDERS = 'FETCH_REMINDERS';
 export const UPDATE_REMINDER = 'UPDATE_REMINDER';
 
@@ -57,6 +58,14 @@ export function editReminder(reminder) {
   }
 };
 
+export function fetchReminder(reminderId) {
+  return dispatch => {
+    return fetch(`${rootURL}/${reminderId}.json`)
+      .then(request => request.json())
+      .then(json => dispatch(handleFetchedReminder(json)));
+  };
+};
+
 export function fetchReminders() {
   return dispatch => {
     return fetch(rootURL)
@@ -93,18 +102,11 @@ export function updateReminder(unsavedReminderAttributes) {
   }
 }
 
-function handleReminderUpdation(reminderAttributes) {
+function handleFetchedReminder(reminderAttributes) {
   return {
     reminderAttributes,
-    type: UPDATE_REMINDER
-  }
-}
-
-function handleReminderAddition(reminderAttributes) {
-  return {
-    reminderAttributes,
-    type: ADD_REMINDER
-  }
+    type: FETCH_REMINDER
+  };
 }
 
 function handleFetchedReminders(reminders) {
@@ -114,9 +116,23 @@ function handleFetchedReminders(reminders) {
   };
 }
 
+function handleReminderAddition(reminderAttributes) {
+  return {
+    reminderAttributes,
+    type: ADD_REMINDER
+  }
+}
+
 function handleReminderDeletion(reminderId) {
   return {
     reminderId,
     type: DELETE_REMINDER
   };
+}
+
+function handleReminderUpdation(reminderAttributes) {
+  return {
+    reminderAttributes,
+    type: UPDATE_REMINDER
+  }
 }
