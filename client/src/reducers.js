@@ -51,7 +51,7 @@ export default function rootReducer(state, action) {
         {},
         state,
         {
-          reminderInEditMode: action.reminder,
+          reminderInEditMode: null,
           reminders: updatedReminders(state.reminders, action.reminderAttributes)
         }
       );
