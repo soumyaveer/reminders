@@ -11,8 +11,7 @@ describe RecipientsMailer do
     end
 
     it 'sets to' do
-      emails = reminder.recipient_email_address_values=(reminder.recipient_email_addresses)
-
+      emails = reminder.recipient_email_addresses
       expect(@mail.to).to match_array(emails)
     end
 
