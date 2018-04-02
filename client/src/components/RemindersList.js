@@ -3,30 +3,14 @@ import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
 import RemindersForm from './RemindersForm';
 import update from 'immutability-helper';
-
-const rootUrl = '/api/reminders';
+import { fetchReminders } from '../actions';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class RemindersList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      reminders: [],
-      editingReminderId: null
-    }
-
-  }
-
   componentDidMount() {
-    const getUrl = `${rootUrl}.json`;
-    fetch(getUrl)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          reminders: response
-        })
-      })
-      .catch(error => console.log(error))
+    const { dispatch } = this.props;
+    dispatch(fetchReminders());
   }
 
   addNewReminder = () => {
@@ -37,7 +21,7 @@ class RemindersList extends React.Component {
         recipient_email_address_values: ''
     };
 
-    const postUrl = `${rootUrl}.json`;
+    const postUrl = `${'/api/reminders'}.json`;
 
     fetch(postUrl,
       {
@@ -80,7 +64,8 @@ class RemindersList extends React.Component {
   };
 
   render() {
-    const { reminders, editingReminderId} = this.state;
+    const { reminders, editingReminderId} = this.props;
+
     return (
       <div>
         <div>
@@ -113,4 +98,17 @@ class RemindersList extends React.Component {
   }
 }
 
-export default RemindersList;
+RemindersList.propTypes = {
+  dispatch: PropTypes.func.isRequred,
+  editingReminderId: PropTypes.number,
+  reminders: PropTypes.array.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    editingReminderId: state.editingReminderId || null,
+    reminders: state.reminders || []
+  };
+}
+
+export default connect(mapStateToProps)(RemindersList);
