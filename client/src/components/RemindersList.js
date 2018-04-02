@@ -64,7 +64,7 @@ class RemindersList extends React.Component {
   };
 
   render() {
-    const { reminders, editingReminderId} = this.props;
+    const { dispatch, reminders, editingReminderId} = this.props;
 
     return (
       <div>
@@ -99,11 +99,11 @@ class RemindersList extends React.Component {
 }
 
 RemindersList.propTypes = {
-  dispatch: PropTypes.func.isRequred,
   editingReminderId: PropTypes.number,
   reminders: PropTypes.array.isRequired
 };
 
+// map the store's state to the component's props
 function mapStateToProps(state) {
   return {
     editingReminderId: state.editingReminderId || null,

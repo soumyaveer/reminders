@@ -8,11 +8,8 @@ module API
     end
 
     def destroy
-      if @reminder.destroy
-        head :no_content, status: :ok
-      else
-        render json: @reminder.errors, status: :unprocessable_entity
-      end
+      @reminder.destroy!
+      render json: @reminder
     end
 
     def index
