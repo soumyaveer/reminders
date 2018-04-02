@@ -1,24 +1,22 @@
-# README
+# Reminders
+Manage your Reminders and get notifications.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features:
+1. Allows addition of new reminders
+2. Sends notifications
+3. Allows editing of the reminders
+4. Delete a reminder
 
-Things you may want to cover:
+## Usage:
+1. Clone the repository (https://github.com/soumyaveer/reminders)
+2. Run bundle install
+3. Start postgres and redis
+5. Go to client directory using `cd client` and run `npm install`
+6. Go back to root - `cd ..`, and run `rake start` 
+7. Go to `http://localhost:3000` to view the Reminders Home page
 
-* Ruby version
+## Contributing:
+Bug reports and pull requests are welcome on GitHub at (https://github.com/soumyaveer/reminders)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## License:
+The application is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT)
