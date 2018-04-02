@@ -8,15 +8,20 @@
 }
 
 .App-header {
-  font-family: "Chalkboard";
-  font-weight: bolder;
-  text-align: center;
   height: 100px;
   padding: 20px;
   margin-bottom: 30px;
+  background-image: url('reminder6.svg');
+  /*background: darkcyan;*/
+  display: block;
+  position: inherit;
+  text-align: center;
+  font-family: "Chalkboard";
+  font-size: xx-large;
+  font-weight: bolder;
   color: white;
-  background: darkcyan;
 }
+
 
 .App-title {
   font-size: 1.5em;
@@ -105,7 +110,7 @@
 }
 
 .delete-button {
-  background: red;
+  background: indianred;
   border: 1px solid darkgrey;
   border-radius: 5px;
   cursor: pointer;
@@ -124,7 +129,7 @@
 
 .delete-button:hover {
   background: transparent;
-  color: red;
+  color: indianred;
   box-shadow: 5px 5px darkgrey;
 }
 
@@ -170,13 +175,13 @@ textarea {
   margin: 5px;
   font-size: 20px;
   cursor: pointer;
-  color: red;
+  color: indianred;
   text-decoration: none;
 }
 
 .delete-confirmation {
   margin-top: 80px;
-  color: red;
+  color: indianred;
   text-align: center;
 }
 

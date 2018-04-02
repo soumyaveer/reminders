@@ -6,7 +6,7 @@ import RemindersList from './RemindersList'
 const Home = () => (
   <div className="App">
     <div className="App-header">
-      <h1>Don't Forget!</h1>
+      Don't Forget!
     </div>
     <RemindersList />
   </div>
