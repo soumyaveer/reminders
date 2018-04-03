@@ -10,7 +10,7 @@ describe EmailWorker do
       end.to change(ActionMailer::Base.deliveries, :size).by(1)
 
       mail = ActionMailer::Base.deliveries.last
-      emails = reminder.recipient_email_address_values=(reminder.recipient_email_addresses)
+      emails = reminder.recipient_email_addresses
 
       expect(mail.to).to match_array(emails)
       expect(mail.subject).to eql('A Gentle Reminder')

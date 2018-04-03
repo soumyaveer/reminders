@@ -31,7 +31,7 @@ class ReminderDetails extends React.Component {
           <div className="reminder-details">
             <label className="reminder-label">Time:</label>
             <p className="reminder-details-info">
-              {<Time value={this.props.reminder.time} utc={true} format="YYYY/MM/DD HH:mm"/> || ''}
+              {<Time value={this.props.reminder.time} format="YYYY/MM/DD HH:mm"/> || ''}
             </p>
           </div>
 
