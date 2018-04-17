@@ -19,7 +19,7 @@ export function addReminder(reminderAttributes) {
     }
   };
 
-  return dispatch => {
+  return function(dispatch) {
     return fetch(rootURL, {
       body: JSON.stringify(requestBody),
 
