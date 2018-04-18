@@ -55,7 +55,14 @@ export default function rootReducer(state, action) {
       });
 
     case INCREMENT_LIKES:
-      return action.likes + 1;
+      const i = action.index;
+      return Object.assign(
+        {},
+        state,
+        {
+          reminders: incrementLikes(state.reminders, action.index)
+        }
+      );
 
     case UPDATE_REMINDER:
       return Object.assign(
@@ -78,15 +85,10 @@ function updatedReminders(currentReminders, newReminderAttributes) {
   });
 }
 
-function incrementLikes(currentReminders, newReminderAttributes) {
-  return currentReminders.map((reminder) =>{
-    if(reminder.id === newReminderAttributes.id) {
-      newReminderAttributes.likes = parseInt(newReminderAttributes.likes + 1);
-      return newReminderAttributes
-    } else {
-      return reminder
-    }
-
-  })
-
+function incrementLikes(currentReminders, reminderIndex) {
+  return [
+    ...currentReminders.slice(0,reminderIndex), // before the one we are updating
+    {...currentReminders[reminderIndex], likes: currentReminders[reminderIndex].likes + 1},
+    ...currentReminders.slice(reminderIndex + 1), // after the one we are updating
+  ]
 }

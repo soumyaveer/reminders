@@ -185,6 +185,9 @@ textarea {
   text-align: center;
 }
 
+.like-button {
+  color: darkcyan;
+}
 
 
 .reminder-details {

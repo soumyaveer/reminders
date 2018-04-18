@@ -5,36 +5,9 @@ import {editReminder, fetchReminder, incrementLikes, updateReminder} from "../ac
 import { connect } from 'react-redux';
 
 class RemindersListItem extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const {id, title, time, recipient_email_address_values, message, likes} = props.reminder;
-
-    this.state = {
-      reminder: {
-        id,
-        title,
-        time,
-        message,
-        recipient_email_address_values,
-        likes
-      }
-    }
-  }
 
   handleClick = () => {
     return this.props.onClick(this.props.reminder)
-  };
-
-  handleLikeClick = () =>  {
-    this.setState({
-      reminder: {
-        ...this.state.reminder,
-        likes: this.state.reminder.likes + 1
-      }
-    }, function() {
-      this.props.performReminderUpdate(this.state.reminder);
-    });
   };
 
   // callApi = () => {
@@ -59,9 +32,9 @@ class RemindersListItem extends React.Component {
   // }
 
   render() {
-    const {reminder} = this.props;
-    const deleteConfirmationPath = `/reminders/${reminder.id}/delete_confirmation`;
+    const {reminder, index} = this.props;
 
+    const deleteConfirmationPath = `/reminders/${reminder.id}/delete_confirmation`;
     return (
       <div className="tile">
         <Link className="deleteLink" to={deleteConfirmationPath}>
@@ -69,7 +42,7 @@ class RemindersListItem extends React.Component {
         </Link>
 
         <h4>
-          <Link to={`/reminders/${reminder.id}`} className="tile-link" onClick={this.handleClick}>
+          <Link to={`/reminders/${reminder.id}`} className="tile-link">
             {reminder.title}
           </Link>
         </h4>
@@ -79,11 +52,10 @@ class RemindersListItem extends React.Component {
         </p>
 
         <div>
-          <Button onClick={this.handleLikeClick}>
-            Like?
+          <Button className="like-button" onClick={() => this.props.incrementLikes(index)}>
+            &hearts; {this.props.reminder.likes}
           </Button>
           <p>
-            {this.state.reminder.likes}
           </p>
         </div>
 
@@ -103,8 +75,8 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    performReminderUpdate: (reminderAttributes) => {
-      return dispatch(updateReminder(reminderAttributes));
+    incrementLikes: (reminderIndex) => {
+      return dispatch(incrementLikes(reminderIndex))
     }
   }
 };

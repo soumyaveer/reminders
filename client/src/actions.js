@@ -75,9 +75,8 @@ export function fetchReminders() {
   };
 };
 
-export function incrementLikes(likes) {
-  handleIncrementLikes(likes)
-
+export function incrementLikes(index) {
+  return handleIncrementLikes(index)
 }
 
 export function updateReminder(unsavedReminderAttributes) {
@@ -123,9 +122,9 @@ function handleFetchedReminders(reminders) {
   };
 }
 
-function handleIncrementLikes(likes) {
+function handleIncrementLikes(index) {
   return {
-    likes,
+    index,
     type: INCREMENT_LIKES
   }
 }
