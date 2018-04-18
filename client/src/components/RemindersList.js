@@ -7,12 +7,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class RemindersList extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      reminderInEditMode: null
+    }
+  }
   addNewReminder = () => {
     const reminderAttributes = {
       message: '',
       recipient_email_address_values: '',
       time: '',
-      title: ''
+      title: '',
+      likes: ''
     };
 
     this.props.dispatch(addReminder(reminderAttributes));
@@ -24,11 +31,14 @@ class RemindersList extends React.Component {
   }
 
   enableEditing = (reminder) => {
-    this.props.dispatch(editReminder(reminder));
+    this.setState({
+      reminderInEditMode: reminder
+  })
+    // this.props.dispatch(editReminder(reminder));
   };
 
   render() {
-    const {reminders, reminderInEditMode} = this.props;
+    const {reminders} = this.props;
 
     return (
       <div>
@@ -40,7 +50,7 @@ class RemindersList extends React.Component {
 
         <div className="reminders">
           {reminders.map((reminder) => {
-            if (reminderInEditMode === reminder) {
+            if (this.state.reminderInEditMode === reminder) {
               return (
                 <RemindersForm
                   reminder={reminder}
@@ -70,7 +80,7 @@ RemindersList.propTypes = {
 
 function mapStateToProps(storeState) {
   return {
-    reminderInEditMode: storeState.reminderInEditMode,
+    // reminderInEditMode: storeState.reminderInEditMode,
     reminders: storeState.reminders
   };
 }

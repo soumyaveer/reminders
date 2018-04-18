@@ -1,4 +1,12 @@
-import {FETCH_REMINDER, FETCH_REMINDERS, DELETE_REMINDER, ADD_REMINDER, UPDATE_REMINDER, EDIT_REMINDER} from "./actions";
+import {
+  FETCH_REMINDER,
+  FETCH_REMINDERS,
+  DELETE_REMINDER,
+  ADD_REMINDER,
+  UPDATE_REMINDER,
+  EDIT_REMINDER,
+  INCREMENT_LIKES
+} from "./actions";
 
 export default function rootReducer(state, action) {
   if (!state) {
@@ -46,12 +54,15 @@ export default function rootReducer(state, action) {
         reminders: action.reminders
       });
 
+    case INCREMENT_LIKES:
+      return action.likes + 1;
+
     case UPDATE_REMINDER:
       return Object.assign(
         {},
         state,
         {
-          reminderInEditMode: action.reminderAttributes,
+          // reminderInEditMode: action.reminderAttributes,
           reminders: updatedReminders(state.reminders, action.reminderAttributes)
         }
       );
@@ -65,4 +76,17 @@ function updatedReminders(currentReminders, newReminderAttributes) {
   return currentReminders.map((currentReminder) => {
     return currentReminder.id === newReminderAttributes.id ? newReminderAttributes : currentReminder;
   });
+}
+
+function incrementLikes(currentReminders, newReminderAttributes) {
+  return currentReminders.map((reminder) =>{
+    if(reminder.id === newReminderAttributes.id) {
+      newReminderAttributes.likes = parseInt(newReminderAttributes.likes + 1);
+      return newReminderAttributes
+    } else {
+      return reminder
+    }
+
+  })
+
 }
