@@ -9,7 +9,7 @@ const RemindersListItem = (props) => {
     return props.onClick(props.reminder)
   };
 
-  const handleIncrementClick = () => {
+  const handleLikeButtonClick = () => {
     return props.onLikeButtonClick(props.reminder)
   };
 
@@ -30,7 +30,7 @@ const RemindersListItem = (props) => {
       </p>
 
       <div>
-        <Button className="like-button" onClick={handleIncrementClick}>
+        <Button className="like-button" onClick={handleLikeButtonClick}>
           &hearts; {props.reminder.likes}
         </Button>
       </div>

@@ -43,7 +43,7 @@ class RemindersList extends React.Component {
     })
   };
 
-  onIncrementLike = (reminder) => {
+  handleLikeButtonClick = (reminder) => {
     reminder.likes++;
     this.props.dispatch(updateReminder(reminder))
   };
@@ -75,7 +75,7 @@ class RemindersList extends React.Component {
                 reminder={reminder}
                 key={reminder.id}
                 onClick={this.enableEditing}
-                onLikeButtonClick={this.onIncrementLike}
+                onLikeButtonClick={this.handleLikeButtonClick}
               />
             )
           })}
