@@ -1,6 +1,5 @@
 export const ADD_REMINDER = 'ADD_REMINDER';
 export const DELETE_REMINDER = 'DELETE_REMINDER';
-export const EDIT_REMINDER = 'EDIT_REMINDER';
 export const FETCH_REMINDER = 'FETCH_REMINDER';
 export const FETCH_REMINDERS = 'FETCH_REMINDERS';
 export const UPDATE_REMINDER = 'UPDATE_REMINDER';
@@ -49,12 +48,6 @@ export function deleteReminder(reminderId) {
       .then(request => request.json())
       .then(json => dispatch(handleReminderDeletion(reminderId)));
   };
-};
-
-export function editReminder(reminder) {
-  return {
-    type: EDIT_REMINDER
-  }
 };
 
 export function fetchReminder(reminderId) {

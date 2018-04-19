@@ -3,8 +3,7 @@ import {
   FETCH_REMINDERS,
   DELETE_REMINDER,
   ADD_REMINDER,
-  UPDATE_REMINDER,
-  EDIT_REMINDER,
+  UPDATE_REMINDER
 } from "./actions";
 
 export default function rootReducer(state, action) {
