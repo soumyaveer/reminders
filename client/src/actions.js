@@ -53,7 +53,6 @@ export function deleteReminder(reminderId) {
 
 export function editReminder(reminder) {
   return {
-    reminderInEditMode: reminder,
     type: EDIT_REMINDER
   }
 };

@@ -15,7 +15,7 @@ const RemindersListItem = (props) => {
 
   return (
     <div className="tile">
-      <Link className="deleteLink" to={deleteConfirmationPath}>
+      <Link className="delete-link" to={deleteConfirmationPath}>
         x
       </Link>
 
@@ -36,7 +36,7 @@ const RemindersListItem = (props) => {
       </div>
     </div>
   )
-}
+};
 
 
 

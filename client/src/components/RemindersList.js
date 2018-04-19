@@ -8,22 +8,28 @@ import { connect } from 'react-redux';
 
 class RemindersList extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
+
     this.state = {
-      reminderInEditMode: null
+      editableReminderId: null
     }
   }
 
   addNewReminder = () => {
     const reminderAttributes = {
+      likes: 0,
       message: '',
       recipient_email_address_values: '',
       time: '',
-      title: '',
-      likes: ''
+      title: ''
     };
 
-    this.props.dispatch(addReminder(reminderAttributes));
+
+    this.props.dispatch(addReminder(reminderAttributes)).then((json) => {
+      this.setState({
+        editableReminderId: json.reminderAttributes.id
+      });
+    });
   };
 
   componentDidMount() {
@@ -33,7 +39,7 @@ class RemindersList extends React.Component {
 
   enableEditing = (reminder) => {
     this.setState({
-      reminderInEditMode: reminder
+      editableReminderId: reminder.id
     })
   };
 
@@ -55,7 +61,7 @@ class RemindersList extends React.Component {
 
         <div className="reminders">
           {reminders.map((reminder) => {
-            if (this.state.reminderInEditMode === reminder) {
+            if (this.state.editableReminderId === reminder.id) {
               return (
                 <RemindersForm
                   reminder={reminder}
@@ -80,7 +86,7 @@ class RemindersList extends React.Component {
 }
 
 RemindersList.propTypes = {
-  reminderInEditMode: PropTypes.object,
+  editableReminderId: PropTypes.number,
   reminders: PropTypes.array.isRequired
 };
 
