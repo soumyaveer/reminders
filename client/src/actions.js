@@ -1,6 +1,5 @@
 export const ADD_REMINDER = 'ADD_REMINDER';
 export const DELETE_REMINDER = 'DELETE_REMINDER';
-export const EDIT_REMINDER = 'EDIT_REMINDER';
 export const FETCH_REMINDER = 'FETCH_REMINDER';
 export const FETCH_REMINDERS = 'FETCH_REMINDERS';
 export const UPDATE_REMINDER = 'UPDATE_REMINDER';
@@ -51,13 +50,6 @@ export function deleteReminder(reminderId) {
   };
 };
 
-export function editReminder(reminder) {
-  return {
-    reminderInEditMode: reminder,
-    type: EDIT_REMINDER
-  }
-};
-
 export function fetchReminder(reminderId) {
   return dispatch => {
     return fetch(`${rootURL}/${reminderId}.json`)
@@ -75,14 +67,15 @@ export function fetchReminders() {
 };
 
 export function updateReminder(unsavedReminderAttributes) {
-  const { message, recipient_email_address_values, time, title } = unsavedReminderAttributes;
+  const { message, recipient_email_address_values, time, title, likes } = unsavedReminderAttributes;
 
   const requestBody = {
     reminder: {
       message,
       recipient_email_address_values,
       time,
-      title
+      title,
+      likes
     }
   };
 

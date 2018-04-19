@@ -1,23 +1,28 @@
-import {FETCH_REMINDER, FETCH_REMINDERS, DELETE_REMINDER, ADD_REMINDER, UPDATE_REMINDER, EDIT_REMINDER} from "./actions";
+import {
+  FETCH_REMINDER,
+  FETCH_REMINDERS,
+  DELETE_REMINDER,
+  ADD_REMINDER,
+  UPDATE_REMINDER
+} from "./actions";
 
 export default function rootReducer(state, action) {
   if (!state) {
     state = {
       reminderInDetailMode: null,
-      reminderInEditMode: null,
       reminders: []
     }
   }
 
   switch (action.type) {
     case ADD_REMINDER:
+
       return Object.assign(
         {},
         state,
         {
           reminders: state.reminders.concat(action.reminderAttributes),
-          reminderInDetailMode: null,
-          reminderInEditMode: action.reminderAttributes
+          reminderInDetailMode: null
         }
       );
 
@@ -30,19 +35,14 @@ export default function rootReducer(state, action) {
         }
       );
 
-    case EDIT_REMINDER:
-      return Object.assign({}, state, {reminderInEditMode: action.reminderInEditMode});
-
     case FETCH_REMINDER:
       return Object.assign({}, state, {
-        reminderInDetailMode: action.reminderAttributes,
-        reminderInEditMode: null
+        reminderInDetailMode: action.reminderAttributes
       });
 
     case FETCH_REMINDERS:
       return Object.assign({}, state, {
         reminderInDetailMode: null,
-        reminderInEditMode: null,
         reminders: action.reminders
       });
 
@@ -51,7 +51,6 @@ export default function rootReducer(state, action) {
         {},
         state,
         {
-          reminderInEditMode: action.reminderAttributes,
           reminders: updatedReminders(state.reminders, action.reminderAttributes)
         }
       );

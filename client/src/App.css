@@ -92,7 +92,7 @@
   margin-left: 10px;
 }
 
-.tile:hover .deleteLink {
+.tile:hover .delete-link {
   visibility: visible;
 }
 
@@ -167,7 +167,7 @@ textarea {
   height: 20px;
 }
 
-.deleteLink {
+.delete-link {
   visibility: hidden;
   padding-bottom: 50px;
   padding-left: 50px;
@@ -185,6 +185,9 @@ textarea {
   text-align: center;
 }
 
+.like-button {
+  color: darkcyan;
+}
 
 
 .reminder-details {

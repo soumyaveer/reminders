@@ -25,6 +25,14 @@ class Reminder < ApplicationRecord
     super(options)
   end
 
+  def can_be_delivered?
+    valid_for_email_delivery? && !self.delivered?
+  end
+
+  def delivered?
+    self.time.present? && self.time < Time.zone.now
+  end
+
   def recipient_email_address_values=(values)
     self.recipient_email_addresses = values.split(",").map(&:strip)
   end
@@ -36,7 +44,7 @@ class Reminder < ApplicationRecord
   private
 
   def enqueue_sidekiq_job
-    return unless valid_for_email_delivery?
+    return unless self.can_be_delivered?
 
     sidekiq_job_id = EmailWorker.perform_at(self.time, self.id)
     self.update_column(:sidekiq_job_id, sidekiq_job_id)
@@ -48,7 +56,7 @@ class Reminder < ApplicationRecord
   end
 
   def re_enqueue_sidekiq_job
-    return unless valid_for_email_delivery?
+    return unless self.can_be_delivered?
 
     remove_sidekiq_job
     enqueue_sidekiq_job

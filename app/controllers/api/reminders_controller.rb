@@ -39,7 +39,8 @@ module API
         :title,
         :message,
         :time,
-        :recipient_email_addresses
+        :recipient_email_addresses,
+        :likes
       )
     end
   end

@@ -2,20 +2,34 @@ import React from 'react';
 import RemindersListItem from "./RemindersListItem";
 import Button from './Button';
 import RemindersForm from './RemindersForm';
-import {addReminder, editReminder, fetchReminders} from '../actions';
+import {addReminder, fetchReminders, updateReminder} from '../actions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class RemindersList extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      editableReminderId: null
+    }
+  }
+
   addNewReminder = () => {
     const reminderAttributes = {
+      likes: 0,
       message: '',
       recipient_email_address_values: '',
       time: '',
       title: ''
     };
 
-    this.props.dispatch(addReminder(reminderAttributes));
+
+    this.props.dispatch(addReminder(reminderAttributes)).then((json) => {
+      this.setState({
+        editableReminderId: json.reminderAttributes.id
+      });
+    });
   };
 
   componentDidMount() {
@@ -24,11 +38,18 @@ class RemindersList extends React.Component {
   }
 
   enableEditing = (reminder) => {
-    this.props.dispatch(editReminder(reminder));
+    this.setState({
+      editableReminderId: reminder.id
+    })
+  };
+
+  handleLikeButtonClick = (reminder) => {
+    reminder.likes++;
+    this.props.dispatch(updateReminder(reminder))
   };
 
   render() {
-    const {reminders, reminderInEditMode} = this.props;
+    const {reminders} = this.props;
 
     return (
       <div>
@@ -40,7 +61,7 @@ class RemindersList extends React.Component {
 
         <div className="reminders">
           {reminders.map((reminder) => {
-            if (reminderInEditMode === reminder) {
+            if (this.state.editableReminderId === reminder.id) {
               return (
                 <RemindersForm
                   reminder={reminder}
@@ -54,6 +75,7 @@ class RemindersList extends React.Component {
                 reminder={reminder}
                 key={reminder.id}
                 onClick={this.enableEditing}
+                onLikeButtonClick={this.handleLikeButtonClick}
               />
             )
           })}
@@ -64,13 +86,12 @@ class RemindersList extends React.Component {
 }
 
 RemindersList.propTypes = {
-  reminderInEditMode: PropTypes.object,
+  editableReminderId: PropTypes.number,
   reminders: PropTypes.array.isRequired
 };
 
 function mapStateToProps(storeState) {
   return {
-    reminderInEditMode: storeState.reminderInEditMode,
     reminders: storeState.reminders
   };
 }
