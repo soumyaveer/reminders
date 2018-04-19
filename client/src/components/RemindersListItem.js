@@ -1,85 +1,43 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Button from './Button';
-import {editReminder, fetchReminder, incrementLikes, updateReminder} from "../actions";
-import { connect } from 'react-redux';
 
-class RemindersListItem extends React.Component {
+const RemindersListItem = (props) => {
+  const deleteConfirmationPath = `/reminders/${props.reminder.id}/delete_confirmation`;
 
-  handleClick = () => {
-    return this.props.onClick(this.props.reminder)
+  const handleClick = () => {
+    return props.onClick(props.reminder)
   };
 
-  // callApi = () => {
-  //   console.log('a')
-  //   const url = '/api/reminders';
-  //   fetch(url)
-  //     .then(response => {
-  //       if (response.ok) {
-  //         console.log('b')
-  //         return response.json()
-  //       } else {
-  //         throw new Error(response.statusText)
-  //       }
-  //     })
-  //     .then(json => console.log('c', json))
-  //     .catch(err => console.log('d', err))
-  //   console.log('e')
-  //
-  //   // a e b c + json
-  //
-  //   // a e b d + err
-  // }
+  const handleIncrementClick = () => {
+    return props.onLikeButtonClick(props.reminder)
+  };
 
-  render() {
-    const {reminder, index} = this.props;
+  return (
+    <div className="tile">
+      <Link className="deleteLink" to={deleteConfirmationPath}>
+        x
+      </Link>
 
-    const deleteConfirmationPath = `/reminders/${reminder.id}/delete_confirmation`;
-    return (
-      <div className="tile">
-        <Link className="deleteLink" to={deleteConfirmationPath}>
-          x
+      <h4>
+        <Link to={`/reminders/${props.reminder.id}`} className="tile-link">
+          {props.reminder.title}
         </Link>
+      </h4>
 
-        <h4>
-          <Link to={`/reminders/${reminder.id}`} className="tile-link">
-            {reminder.title}
-          </Link>
-        </h4>
+      <p onClick={handleClick}>
+        {props.reminder.message}
+      </p>
 
-        <p onClick={this.handleClick}>
-          {reminder.message}
-        </p>
-
-        <div>
-          <Button className="like-button" onClick={() => this.props.incrementLikes(index)}>
-            &hearts; {this.props.reminder.likes}
-          </Button>
-          <p>
-          </p>
-        </div>
-
-        {/*<div>*/}
-          {/*<Button onClick={this.callApi}>*/}
-            {/*Call Api*/}
-          {/*</Button>*/}
-        {/*</div>*/}
+      <div>
+        <Button className="like-button" onClick={handleIncrementClick}>
+          &hearts; {props.reminder.likes}
+        </Button>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-const mapStateToProps = () => {
-  return {}
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    incrementLikes: (reminderIndex) => {
-      return dispatch(incrementLikes(reminderIndex))
-    }
-  }
-};
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RemindersListItem)
+export default RemindersListItem;

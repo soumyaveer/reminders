@@ -4,7 +4,6 @@ export const EDIT_REMINDER = 'EDIT_REMINDER';
 export const FETCH_REMINDER = 'FETCH_REMINDER';
 export const FETCH_REMINDERS = 'FETCH_REMINDERS';
 export const UPDATE_REMINDER = 'UPDATE_REMINDER';
-export const INCREMENT_LIKES = 'INCREMENT_LIKES';
 
 const rootURL = '/api/reminders';
 
@@ -75,10 +74,6 @@ export function fetchReminders() {
   };
 };
 
-export function incrementLikes(index) {
-  return handleIncrementLikes(index)
-}
-
 export function updateReminder(unsavedReminderAttributes) {
   const { message, recipient_email_address_values, time, title, likes } = unsavedReminderAttributes;
 
@@ -120,13 +115,6 @@ function handleFetchedReminders(reminders) {
     reminders,
     type: FETCH_REMINDERS
   };
-}
-
-function handleIncrementLikes(index) {
-  return {
-    index,
-    type: INCREMENT_LIKES
-  }
 }
 
 function handleReminderAddition(reminderAttributes) {

@@ -5,7 +5,6 @@ import {
   ADD_REMINDER,
   UPDATE_REMINDER,
   EDIT_REMINDER,
-  INCREMENT_LIKES
 } from "./actions";
 
 export default function rootReducer(state, action) {
@@ -54,22 +53,11 @@ export default function rootReducer(state, action) {
         reminders: action.reminders
       });
 
-    case INCREMENT_LIKES:
-      const i = action.index;
-      return Object.assign(
-        {},
-        state,
-        {
-          reminders: incrementLikes(state.reminders, action.index)
-        }
-      );
-
     case UPDATE_REMINDER:
       return Object.assign(
         {},
         state,
         {
-          // reminderInEditMode: action.reminderAttributes,
           reminders: updatedReminders(state.reminders, action.reminderAttributes)
         }
       );
@@ -83,12 +71,4 @@ function updatedReminders(currentReminders, newReminderAttributes) {
   return currentReminders.map((currentReminder) => {
     return currentReminder.id === newReminderAttributes.id ? newReminderAttributes : currentReminder;
   });
-}
-
-function incrementLikes(currentReminders, reminderIndex) {
-  return [
-    ...currentReminders.slice(0,reminderIndex), // before the one we are updating
-    {...currentReminders[reminderIndex], likes: currentReminders[reminderIndex].likes + 1},
-    ...currentReminders.slice(reminderIndex + 1), // after the one we are updating
-  ]
 }

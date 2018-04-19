@@ -10,13 +10,6 @@ class RemindersList extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      reminder: {
-        title: '',
-        message: '',
-        time: '',
-        likes: 0,
-        recipient_email_address_values: ''
-      },
       reminderInEditMode: null
     }
   }
@@ -38,27 +31,15 @@ class RemindersList extends React.Component {
     dispatch(fetchReminders());
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const {reminders} = this.props;
-
-    prevProps.reminders.map((prevReminder, index) => {
-      if (prevReminder.likes !== reminders[index].likes) {
-        let reminder = reminders[index];
-
-        this.setState({
-          reminder
-        }, function(){
-          this.props.dispatch(updateReminder(this.state.reminder))
-        })
-
-      }
-    })
-  }
-
   enableEditing = (reminder) => {
     this.setState({
       reminderInEditMode: reminder
     })
+  };
+
+  onIncrementLike = (reminder) => {
+    reminder.likes++;
+    this.props.dispatch(updateReminder(reminder))
   };
 
   render() {
@@ -73,7 +54,7 @@ class RemindersList extends React.Component {
         </div>
 
         <div className="reminders">
-          {reminders.map((reminder, index) => {
+          {reminders.map((reminder) => {
             if (this.state.reminderInEditMode === reminder) {
               return (
                 <RemindersForm
@@ -87,8 +68,8 @@ class RemindersList extends React.Component {
               <RemindersListItem
                 reminder={reminder}
                 key={reminder.id}
-                index={index}
                 onClick={this.enableEditing}
+                onLikeButtonClick={this.onIncrementLike}
               />
             )
           })}
