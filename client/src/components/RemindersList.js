@@ -44,8 +44,10 @@ class RemindersList extends React.Component {
   };
 
   handleLikeButtonClick = (reminder) => {
-    reminder.likes++;
-    this.props.dispatch(updateReminder(reminder))
+    const updatingReminder = Object.assign({}, reminder, {
+      likes: reminder.likes + 1
+    });
+    this.props.dispatch(updateReminder(updatingReminder))
   };
 
   render() {
