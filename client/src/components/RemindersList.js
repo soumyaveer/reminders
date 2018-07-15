@@ -50,8 +50,17 @@ class RemindersList extends React.Component {
     this.props.dispatch(updateReminder(updatingReminder))
   };
 
+  compareLikes = (reminderA, reminderB) => {
+    return reminderB.likes - reminderA.likes
+  }
+
+
   render() {
-    const {reminders} = this.props;
+    let {reminders} = this.props;
+    // reminders.sort(compareValues)
+
+    //reminders with just 30 likes. For 30 likes and more I'll use a >= operator
+      reminders = reminders.filter(reminder => reminder.likes === 30);
 
     return (
       <div>
